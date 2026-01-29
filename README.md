@@ -5,8 +5,6 @@ The application provides an interactive map where users can explore campus build
 
 The project uses **Django + PostGIS** on the backend and is developed using **Docker** to ensure a consistent setup across all team members.
 
----
-
 ## Tech Stack (Current)
 
 * **Backend:** Django (with GeoDjango)
@@ -14,8 +12,6 @@ The project uses **Django + PostGIS** on the backend and is developed using **Do
 * **Containerization:** Docker + Docker Compose
 * **Frontend (planned):** Leaflet + OpenStreetMap
 * **Languages:** Python, HTML/CSS/JavaScript
-
----
 
 ## Prerequisites
 
@@ -29,8 +25,6 @@ All team members must have:
 
 > Docker Desktop **must be running** before any Docker commands will work.
 
----
-
 ## Repository Structure
 
 ```
@@ -40,8 +34,6 @@ All team members must have:
 ├── .env.example        # Environment variable template
 ├── README.md
 ```
-
----
 
 ## First-Time Setup (All Platforms)
 
@@ -54,8 +46,6 @@ cp .env.example .env
 ```
 
 > `.env` is not committed to Git. Each developer has their own local copy.
-
----
 
 ### 2. Build and start the containers
 
@@ -71,15 +61,11 @@ This will:
 
 The first build may take several minutes.
 
----
-
 ### 3. Run database migrations
 
 ```bash
 docker compose exec web python manage.py migrate
 ```
-
----
 
 ### 4. Create an admin user
 
@@ -89,16 +75,12 @@ docker compose exec web python manage.py createsuperuser
 
 Follow the prompts.
 
----
-
 ### 5. Open the app
 
 * Main site: [http://localhost:8000](http://localhost:8000)
 * Admin panel: [http://localhost:8000/admin](http://localhost:8000/admin)
 
 If you can log into the admin panel, your setup is working correctly.
-
----
 
 ## Daily Development Commands
 
@@ -126,16 +108,12 @@ View logs (helpful for debugging):
 docker compose logs web --tail=100
 ```
 
----
-
 ## Team Conventions
 
 * **Do not commit ****`.env`**
 * **Database runs only in Docker**
 * **All Django commands are run via Docker**
 * No one installs Postgres or PostGIS locally
-
----
 
 ## Next Steps (Planned)
 
