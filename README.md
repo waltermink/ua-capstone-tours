@@ -110,7 +110,7 @@ docker compose logs web --tail=100
 
 ## Team Conventions
 
-* **Do not commit ****`.env`**
+* **Do not commit `.env`**
 * **Database runs only in Docker**
 * **All Django commands are run via Docker**
 * No one installs Postgres or PostGIS locally
