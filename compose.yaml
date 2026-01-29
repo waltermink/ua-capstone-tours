@@ -1,0 +1,15 @@
+services:
+  db:
+    image: postgis/postgis:16-3.4
+    container_name: ua-tour-postgis
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_DB: ua_tour
+      POSTGRES_USER: ua_tour
+      POSTGRES_PASSWORD: ua_tour_dev_pw
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+volumes:
+  pgdata:
