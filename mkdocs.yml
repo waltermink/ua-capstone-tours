@@ -1,0 +1,8 @@
+site_name: UA Capstone Tours
+
+nav:
+  - Home: index.md
+  - Deliverables: deliverables.md
+  - Team: team.md
+
+docs_dir: docs
