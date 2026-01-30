@@ -10,8 +10,8 @@ I am a dual major in Computer Science and Geography at the University of Alabama
 **GitHub:** https://github.com/ehgaddis
 I am a senior, majoring in Computer Science, with a strong interest in Software Development and Artificial Intelligence. I have had experience in several coding languages, and SQL databases. I will be working wherever necessary to help ensure quality and timeliness in the completion of this project.
 ## Jacob Childers
-**Major:** 
-**Email:** 
-**GitHub:** 
-Short bio here.
+**Major:** Computer Science
+**Email:** jchilders3@crimson.ua.edu
+**GitHub:** https://github.com/jchilders057-svg
+I am a Computer Science major with a focus in Cyber Security. I have experience working with multiple programming languages and frameworks, software develpment methods, as well as some basic database experience. In the project, I will focus on building the database needed to store different landmarks and building locations used in the application. 
 
