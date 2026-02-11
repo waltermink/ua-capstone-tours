@@ -1,5 +1,10 @@
 from django.contrib.gis.db import models
 
+''' 
+Defines the model for a landmark in the geodatabase, including fields for various attributes.
+At some point we need to have a discussion if we should have multiple models for different types of locations
+or if it should be a single model with a type field. For now we will keep it simple with a single model.
+'''
 class Landmark(models.Model):
     name = models.CharField(max_length=200)
 
