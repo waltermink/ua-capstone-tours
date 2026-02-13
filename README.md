@@ -3,36 +3,59 @@
 A CS 495 Capstone project to build a **mobile-friendly digital walking tour** of the University of Alabama campus.
 The application provides an interactive map where users can explore campus buildings and landmarks via geotagged locations, descriptive text, and (eventually) media such as photos and audio.
 
-The project uses **Django + PostGIS** on the backend and is developed using **Docker** to ensure a consistent setup across all team members.
-
-## Tech Stack (Current)
-
-* **Backend:** Django (with GeoDjango)
-* **Database:** PostgreSQL + PostGIS
-* **Containerization:** Docker + Docker Compose
-* **Frontend (planned):** Leaflet + OpenStreetMap
-* **Languages:** Python, HTML/CSS/JavaScript
+The project uses **Django + PostGIS** on the backend.
 
 ## Prerequisites
 
 All team members must have:
 
 * **Docker Desktop**
-
   * macOS: standard Docker Desktop install
   * Windows: Docker Desktop **with WSL2 enabled**
 * Git
 
 > Docker Desktop **must be running** before any Docker commands will work.
 
-## Repository Structure
+## Backend Development Startup
 
+### 1. Start the project container:
+```bash
+docker compose up -d
 ```
-.
-├── backend/            # Django project + Dockerfile
-├── compose.yaml        # Docker Compose configuration
-├── .env.example        # Environment variable template
-├── README.md
+
+### 2. Enter the Django container (avoids having to type `docker compose exec web` before every command):
+```bash
+docker compose exec web bash
+```
+
+### 3. Do what you need to do...
+If you need to make changes to the database schema, you need to make and run migrations:
+```bash
+python manage.py makemigrations
+python manage.py migrate
+```
+The dockerfile should already start the Django web server, which you can access at [http://localhost:8000](http://localhost:8000). If you make changes to the code, the server should automatically reload.
+  
+If for whatever reason the server is not running, you can start it with:
+```bash
+python manage.py runserver
+```
+To edit stuff in the database, you can use the Django admin panel at [http://localhost:8000/admin](http://localhost:8000/admin).
+
+### 4. Stop the project:
+```bash
+docker compose down
+```
+
+### Other helpful commands:
+Check container status:
+```bash
+docker compose ps
+```
+
+View logs (helpful for debugging):
+```bash
+docker compose logs web --tail=100
 ```
 
 ## First-Time Setup (All Platforms)
@@ -82,44 +105,9 @@ Follow the prompts.
 
 If you can log into the admin panel, your setup is working correctly.
 
-## Daily Development Commands
-
-Start the project:
-
-```bash
-docker compose up -d
-```
-
-Stop the project:
-
-```bash
-docker compose down
-```
-
-Check container status:
-
-```bash
-docker compose ps
-```
-
-View logs (helpful for debugging):
-
-```bash
-docker compose logs web --tail=100
-```
-
 ## Team Conventions
 
 * **Do not commit `.env`**
 * **Database runs only in Docker**
 * **All Django commands are run via Docker**
 * No one installs Postgres or PostGIS locally
-
-## Next Steps (Planned)
-
-* Add landmark models with spatial fields
-* Serve GeoJSON for map rendering
-* Integrate Leaflet map frontend
-* Support user-contributed locations and moderation
-* Add media (photos/audio) to landmarks
-* Curate walking tours
