@@ -23,7 +23,7 @@ function loadBuildings() {
     });
 }
 
-function startTour() {
+function startTour() { // Begins live tracking
     navigator.geolocation.watchPosition(updatePosition, error, {
         enableHighAccuracy: true,
         maximumAge: 5000,
