@@ -30,10 +30,9 @@ services:
       - "${DJANGO_PORT}:8000"
     volumes:
       - ./backend:/app
-      - media_data:/app/media
+      - ./backend/media:/app/media
     depends_on:
       - db
 
 volumes:
   pgdata:
-  media_data:
