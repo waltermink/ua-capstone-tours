@@ -1,10 +1,6 @@
 from django.contrib.gis.db import models
 
-''' 
-Defines the model for a landmark in the geodatabase, including fields for various attributes.
-At some point we need to have a discussion if we should have multiple models for different types of locations
-or if it should be a single model with a type field. For now we will keep it simple with a single model.
-'''
+# Defines the Landmark model with fields for name, descriptions, location, address, publication status, and timestamps.
 class Landmark(models.Model):
     name = models.CharField(max_length=200)
 
@@ -40,3 +36,25 @@ class Landmark(models.Model):
 
     def __str__(self):
         return self.name
+
+# Defines the LandmarkPhoto model which is related to the Landmark model and includes fields for the image, caption,
+# alt text, sort order, and upload timestamp.
+class LandmarkPhoto(models.Model):
+    landmark = models.ForeignKey(
+        Landmark,
+        related_name='photos',
+        on_delete=models.CASCADE
+    )
+
+    image = models.ImageField(upload_to='landmark_photos/%Y/%m/')
+    caption = models.CharField(max_length=255, blank=True)
+    alt_text = models.CharField(max_length=255, blank=True)
+    sort_order = models.PositiveIntegerField(default=0)
+
+    uploaded_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering = ['sort_order', 'uploaded_at']
+
+    def __str__(self):
+        return f"Photo for {self.landmark.name}"

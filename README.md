@@ -53,6 +53,11 @@ Check container status:
 docker compose ps
 ```
 
+When you add new dependencies to the `requirements.txt` file, you **must** rebuild the container for the changes to take effect:
+```bash
+docker compose up -d --build
+```
+
 View logs (helpful for debugging):
 ```bash
 docker compose logs web --tail=100

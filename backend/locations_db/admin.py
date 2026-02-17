@@ -1,8 +1,9 @@
 from django import forms
 from django.contrib import admin
 from django.contrib.gis.geos import Point
-from .models import Landmark
+from .models import Landmark, LandmarkPhoto
 
+# Creates a custom form for adding and editing landmarks in the Django admin interface
 class LandmarkAdminForm(forms.ModelForm):
     # These fields are not part of the model but are used for inputting the location while the base map UI seems to be broken
     latitude = forms.FloatField(required=True)
@@ -45,6 +46,12 @@ class LandmarkAdminForm(forms.ModelForm):
         if commit:
             obj.save()
         return obj
+    
+# Allows us to manage photos associated with a landmark directly from the landmark edit page
+class LandmarkPhotoInline(admin.TabularInline):
+    model = LandmarkPhoto
+    extra = 1
+    fields = ("image", "caption", "alt_text", "sort_order")
 
 # We register the Landmark model with the custom LandmarkAdmin to use our form and display settings in the Django admin interface
 @admin.register(Landmark)
@@ -52,3 +59,4 @@ class LandmarkAdmin(admin.ModelAdmin):
     form = LandmarkAdminForm
     list_display = ("name", "is_published")
     search_fields = ("name",)
+    inlines = [LandmarkPhotoInline]
