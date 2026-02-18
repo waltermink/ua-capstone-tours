@@ -5728,3 +5728,6 @@
 .venv/lib/python3.12/site-packages/typing_extensions-4.15.0.dist-info/RECORD
 .venv/lib/python3.12/site-packages/typing_extensions-4.15.0.dist-info/WHEEL
 .venv/lib/python3.12/site-packages/typing_extensions-4.15.0.dist-info/licenses/LICENSE
+backend/api/__pycache__/serializers.cpython-312.pyc
+backend/api/__pycache__/tests.cpython-312.pyc
+backend/config/__pycache__/settings.cpython-312.pyc
