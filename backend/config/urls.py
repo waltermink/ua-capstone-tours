@@ -22,6 +22,7 @@ from django.conf.urls.static import static
 urlpatterns = [
     path('locations_db/', include('locations_db.urls')),
     path('admin/', admin.site.urls),
+    path('api/', include('api.urls')),
 ]
 
 # Temporary media serving during development, in production this should be handled by a web server
