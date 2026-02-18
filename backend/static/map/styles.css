@@ -1,0 +1,83 @@
+/*
+This files code was captured from the leafletjs.com website
+*/
+
+/* Remove default page spacing so the map can fill the screen */
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+/* Map container required by Leaflet */
+#map {
+  height: 100vh;   /* Full screen height for campus tours */
+  width: 100%;
+}
+
+/* Floating control panel (Start Tour button) */
+#controls {
+  position: absolute;
+  top: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1000; /* Ensures it stays above the map */
+  background: rgba(255, 255, 255, 0.95);
+  padding: 10px 16px;
+  border-radius: 12px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+}
+
+/* Start Tour button styling */
+#startTour {
+  background-color: #9e1b32; /* UA crimson */
+  color: white;
+  border: none;
+  padding: 10px 18px;
+  font-size: 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+#startTour:hover {
+  background-color: #7a1427;
+}
+
+/* Leaflet popup styling (for building info later) */
+.leaflet-popup-content-wrapper {
+  border-radius: 12px;
+  font-size: 14px;
+}
+
+.leaflet-popup-content {
+  margin: 10px 12px;
+  line-height: 1.4;
+}
+
+/* Optional: User location marker pulse effect */
+.user-marker {
+  width: 14px;
+  height: 14px;
+  background: #007bff;
+  border-radius: 50%;
+  border: 2px solid white;
+  box-shadow: 0 0 6px rgba(0, 123, 255, 0.8);
+}
+
+/* Mobile responsiveness */
+@media (max-width: 600px) {
+  #controls {
+    width: 90%;
+    text-align: center;
+  }
+
+  #startTour {
+    width: 100%;
+    font-size: 15px;
+    padding: 12px;
+  }
+}
+
+
