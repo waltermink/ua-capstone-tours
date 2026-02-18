@@ -1,6 +1,6 @@
 # Team Members
 ## Walter Mink
-<img src="assets/web_media/walter-headshot.jpeg" alt="Walter Mink headshot" width="220" />
+<img src="../assets/web_media/walter-headshot.jpeg" alt="Walter Mink headshot" width="220" />
 
 **Majors:** Computer Science, Geography (GIS Concentration)<br>
 **Email:** wwmink@crimson.ua.edu<br>
