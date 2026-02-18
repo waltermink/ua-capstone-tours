@@ -5,6 +5,8 @@ The application provides an interactive map where users can explore campus build
 
 The project uses **Django + PostGIS** on the backend.
 
+You can **(and should)** read the full documentation for this project, which you can [read here](https://capstone-tours.readthedocs.io/en/latest/).
+
 ## Prerequisites
 
 All team members must have:
