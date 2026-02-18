@@ -19,6 +19,16 @@ RUN pip install --no-cache-dir -r requirements.txt
 # Copy the rest of the backend code
 COPY . /app/
 
+# Expose the port the Django app runs on
 EXPOSE 8000
 
+# Create a non-root user
+RUN addgroup --system appgroup && \
+  adduser --system --ingroup appgroup appuser && \
+  chown -R appuser:appgroup /app
+
+# Switch to non-root user
+USER appuser
+
+# Run the Django development server
 CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
