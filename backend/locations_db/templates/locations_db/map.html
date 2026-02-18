@@ -1,15 +1,30 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
 <head>
-  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
-  <link rel="stylesheet" href="styles.css" />
+  <meta charset="utf-8">
+  <title>Campus Tour Map</title>
+
+  <!-- Leaflet CSS -->
+  <link rel="stylesheet"
+        href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+
+  <!-- Your CSS -->
+  <link rel="stylesheet" href="{% static 'map/styles.css' %}">
 </head>
 <body>
 
-  <div id="controls">
-    <button id="startTour">Start Tour</button>
-  </div>
+<div id="controls">
+  <button id="startTour">Start Tour</button>
+</div>
 
-  <div id="map"></div>
+<div id="map"></div>
 
-  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-  <script src="map.js"></script>
+<!-- Leaflet JS -->
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+<!-- Your JS -->
+<script src="{% static 'map/map.js' %}"></script>
+
 </body>
+</html>
