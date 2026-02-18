@@ -1,45 +1,35 @@
-let map;
-let buildings = [];
-let audio = new Audio();
-let userMarker;
+// Initialize map (default to campus center — change if needed)
+const map = L.map('map').setView([33.2148, -87.5458], 15);
 
-function initMap() { //leaflet's website is used for this section
-    map = L.map("Map").setview([33.214, -87.545], 16)
+// OpenStreetMap tiles
+L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    maxZoom: 19,
+}).addTo(map);
 
-    L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
-        maxZoom: 19,
-    }).addTo(map);
-}
+// Fetch landmarks from your Django API
+fetch('/api/landmarks/')
+    .then(response => response.json())
+    .then(data => {
+        data.forEach(landmark => {
+            const marker = L.marker([landmark.lat, landmark.lon]).addTo(map);
 
-function loadBuildings() {
-    fetch("/api/buildings/")
-    .then(res => res.json())
-    .then(data=> {
-        buildings = data.map(b => ({
-            ...b, 
-            triggered: false,
-            marker: L.marker([b.latitude, b.longitude])
-        }));
-    });
-}
+            let popupContent = `
+                <strong>${landmark.name}</strong><br>
+                ${landmark.short_description || ""}
+            `;
 
-function startTour() { // Begins live tracking
-    navigator.geolocation.watchPosition(updatePosition, error, {
-        enableHighAccuracy: true,
-        maximumAge: 5000,
-        timeout: 10000
-    });
-}
+            if (landmark.cover_photo_url) {
+                popupContent += `
+                    <br>
+                    <img src="${landmark.cover_photo_url}" alt="${landmark.name}">
+                `;
+            }
 
-function updatePosition(position) {
-    const lat = position.coords.latitude;
-    const lon = position.coords.longitude;
+            if (landmark.distance_m !== undefined && landmark.distance_m !== null) {
+                popupContent += `<br><em>${Math.round(landmark.distance_m)} meters away</em>`;
+            }
 
-    if (!userMarker) {
-        userMarker = L.marker([lat, lon]).addTo(map);
-    }
-    else{
-        userMarker.setLatLng([lat, lon]);
-    }
-    checkGeofences(lat, lon);
-}
+            marker.bindPopup(popupContent);
+        });
+    })
+    .catch(error => console.error('Error loading landmarks:', error));
