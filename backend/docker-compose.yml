@@ -3,17 +3,20 @@ version: "3.9"
 services:
   db:
     image: postgis/postgis:15-3.4
-    container_name: campus_db
+    container_name: ua_tour_db
+    restart: always
     environment:
-      POSTGRES_DB: campus
-      POSTGRES_USER: campus
-      POSTGRES_PASSWORD: campus
+      POSTGRES_DB: ua_tour
+      POSTGRES_USER: ua_tour
+      POSTGRES_PASSWORD: ua_tour_dev_pw
     ports:
       - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
 
   web:
     build: .
-    container_name: campus_web
+    container_name: ua_tour_web
     command: python manage.py runserver 0.0.0.0:8000
     volumes:
       - .:/app
@@ -21,3 +24,12 @@ services:
       - "8000:8000"
     depends_on:
       - db
+    environment:
+      POSTGRES_DB: ua_tour
+      POSTGRES_USER: ua_tour
+      POSTGRES_PASSWORD: ua_tour_dev_pw
+      POSTGRES_HOST: db
+      POSTGRES_PORT: 5432
+
+volumes:
+  postgres_data:
