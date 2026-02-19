@@ -5,4 +5,4 @@ def index(request):
     return HttpResponse("Testing Testing")
 
 def map_view(request):
-    return render(request, "locations_db/map.html")
+    return render(request, "map/map.html")
