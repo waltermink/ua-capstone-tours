@@ -1,0 +1,37 @@
+[
+  {
+    "name": "Main Library",
+    "lat": 39.8300,
+    "lng": -98.5800,
+    "description": "The main campus library. Open 24/7 during finals week.",
+    "proximity_radius": 50
+  },
+  {
+    "name": "Student Union",
+    "lat": 39.8275,
+    "lng": -98.5780,
+    "description": "Grab food, attend events, or hang out between classes.",
+    "proximity_radius": 50
+  },
+  {
+    "name": "Science Hall",
+    "lat": 39.8310,
+    "lng": -98.5760,
+    "description": "Home to biology, chemistry, and physics departments.",
+    "proximity_radius": 50
+  },
+  {
+    "name": "Football Stadium",
+    "lat": 39.8255,
+    "lng": -98.5810,
+    "description": "Seats 50,000 fans. Home games every other Saturday.",
+    "proximity_radius": 50
+  },
+  {
+    "name": "Campus Café",
+    "lat": 39.8290,
+    "lng": -98.5755,
+    "description": "Best coffee on campus. Try the cold brew.",
+    "proximity_radius": 50
+  }
+]
