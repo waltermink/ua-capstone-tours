@@ -9,22 +9,25 @@ document.addEventListener("DOMContentLoaded", function () {
         attribution: '&copy; OpenStreetMap contributors'
     }).addTo(map);
 
-    // 3. Load JSON file
-    fetch('points.json?t=' + new Date().getTime())
+    // 3. Load landmarks from Django API
+    fetch('http://localhost:8000/api/landmarks/')
         .then(response => response.json())
         .then(data => {
 
             data.forEach(point => {
 
-                L.marker([point.lat, point.lng])
+                // Store marker reference on the point so proximity code can open it
+                point._marker = L.marker([point.lat, point.lon])  // API returns "lon" not "lng"
                     .addTo(map)
                     .bindPopup(`
                         <b>${point.name}</b><br>
-                        ${point.description}
-                    `);
+                        ${point.short_description}
+                    `);                                            // API returns "short_description" not "description"
 
             });
-            startTracking(data) 
+
+            startTracking(data);
+
         })
         .catch(error => console.error("Error loading JSON:", error));
 
@@ -68,7 +71,7 @@ document.addEventListener("DOMContentLoaded", function () {
             points.forEach(point => {
                 if (triggered.has(point.name)) return;
 
-                const dist = getDistanceMeters(lat, lng, point.lat, point.lng);
+                const dist = getDistanceMeters(lat, lng, point.lat, point.lon);  // API returns "lon" not "lng"
                 const radius = point.proximity_radius || 50; // meters
 
                 if (dist <= radius) {
@@ -96,5 +99,6 @@ document.addEventListener("DOMContentLoaded", function () {
             Math.cos(lat2 * Math.PI / 180) *
             Math.sin(dLon / 2) ** 2;
         return R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-    }  
+    }
+
 });
