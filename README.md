@@ -143,3 +143,72 @@ The frontend fetches landmark data from a Django backend running at `http://loca
 
 ### Docker + Docker Compose
 The frontend runs inside a Docker container managed by Docker Compose. This means you do not need to install nginx manually — Docker handles it. The frontend container is defined in `compose.yml` alongside the backend and database containers.
+
+---
+
+## Setup & Running
+
+### First Time
+
+**1. Clone the repository and navigate to the project root**
+
+```bash
+git clone 
+cd 
+```
+
+**2. Create your local environment file**
+
+```bash
+cp .env.example .env
+```
+
+**3. Build and start all containers**
+
+```bash
+docker compose up -d --build
+```
+
+This starts three containers:
+- `db` — PostgreSQL + PostGIS database
+- `web` — Django backend at `http://localhost:8000`
+- `frontend` — nginx serving the map at `http://localhost:3000`
+
+The first build may take a few minutes.
+
+**4. Run database migrations**
+
+```bash
+docker compose exec web python manage.py migrate
+```
+
+**5. Create an admin user**
+
+```bash
+docker compose exec web python manage.py createsuperuser
+```
+
+Follow the prompts. You will use this to log into the admin panel and add landmarks.
+
+**6. Open the map**
+
+```
+http://localhost:3000/map.html
+```
+
+---
+
+### Every Time After That
+
+```bash
+docker compose up -d
+```
+
+Then open `http://localhost:3000/map.html`.
+
+To stop everything:
+
+```bash
+docker compose down
+```
+
