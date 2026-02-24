@@ -118,3 +118,28 @@ If you can log into the admin panel, your setup is working correctly.
 * **Database runs only in Docker**
 * **All Django commands are run via Docker**
 * No one installs Postgres or PostGIS locally
+
+# Frontend
+
+A mobile-friendly interactive map for exploring the University of Alabama campus. Built as part of the CS 495 Capstone project.
+
+The frontend displays geotagged campus landmarks on a live map, shows the user's real-time location, and automatically opens a popup when the user walks near a landmark.
+
+---
+
+## Tech Stack
+
+### Leaflet.js
+An open-source JavaScript library for building interactive maps. Leaflet handles rendering the map tiles, placing markers at GPS coordinates, and displaying popup windows when a marker is clicked or triggered. It is loaded directly from a CDN — no installation required.
+
+### nginx
+A lightweight web server used to serve the static frontend files (`map.html`, `map.js`) to the browser. It runs inside a Docker container and is accessible at `http://localhost:3000`. nginx does not run any application logic — it simply delivers the HTML and JavaScript files when the browser requests them.
+
+### OpenStreetMap
+The map tile layer used by Leaflet. OpenStreetMap provides the visual map background (roads, buildings, labels). It is free and open-source and requires no API key.
+
+### Django REST API (Backend)
+The frontend fetches landmark data from a Django backend running at `http://localhost:8000`. The relevant endpoint is `/api/landmarks/`, which returns a JSON array of published landmarks including their name, description, and GPS coordinates. The backend is maintained separately — see the backend README for setup instructions.
+
+### Docker + Docker Compose
+The frontend runs inside a Docker container managed by Docker Compose. This means you do not need to install nginx manually — Docker handles it. The frontend container is defined in `compose.yml` alongside the backend and database containers.
