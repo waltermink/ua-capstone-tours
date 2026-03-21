@@ -1,8 +1,18 @@
+//New imports necessary, due to being in React instead of standard Javascript. Need to import items into React, so that they can be used by the software.
+import { useEffect, useRef } from "react";
+import L from "leaflet";
+import "leaflet/dist/leaflet.css";
+export default function MapComponent() {
 // Wait until page loads
-document.addEventListener("DOMContentLoaded", function () {
+
+const mapRef = useRef(null);
+useEffect(() => {
 
     // 1. Create the map
+    //New portion here, to check if the map has been rendered before, as rerendering it may cause crashing due to React systems.
+    if (mapRef.current) return;
     const map = L.map('map').setView([39.8283, -98.5795], 4);
+    mapRef.current = map;
 
     // 2. Add tile layer
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -26,13 +36,13 @@ document.addEventListener("DOMContentLoaded", function () {
 
             });
 
-            startTracking(data);
+            startTracking(map, data);
 
         })
         .catch(error => console.error("Error loading JSON:", error));
+    }, []);
 
-
-    function startTracking(points) {
+    function startTracking(map, points) {
         if (!navigator.geolocation) {
             console.warn("Geolocation not supported.");
             return;
@@ -64,7 +74,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     .addTo(map)
                     .bindTooltip('You are here');
             } else {
-                // Dot already exists — just move it to the new position
+                // Otherwise, the dot already exists — just move it to the new position
                 userMarker.setLatLng([lat, lng]);
             }
 
@@ -100,5 +110,5 @@ document.addEventListener("DOMContentLoaded", function () {
             Math.sin(dLon / 2) ** 2;
         return R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
     }
-
-});
+    return <div id="map" style={{ height: "100vh", width: "100%" }} />;
+}
