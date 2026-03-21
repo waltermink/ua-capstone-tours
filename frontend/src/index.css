@@ -42,6 +42,7 @@
 
   /* Z-index scale */
   --z-explore-card: 50;
+  --z-pin-card:     60;
   --z-backdrop: 100;
   --z-card:     101;
   --z-navbar:   150;

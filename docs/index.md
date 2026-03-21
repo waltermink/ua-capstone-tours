@@ -9,6 +9,7 @@ The goal of the project is to create an interactive web application that allows 
 - [Backend Overview](backend-overview.md)
 - [Data Model and Admin](data-model.md)
 - [API Reference](api-reference.md)
+- [Frontend Components](frontend-components.md)
 - [Development Guide](development-guide.md)
 - [Project Deliverables](deliverables.md)
 - [Team](team.md)
