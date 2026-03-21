@@ -1,0 +1,68 @@
+/* ─── UA Brand Design Tokens ──────────────────────────────────────────────── */
+
+:root {
+  /* Colors — Primary */
+  --ua-crimson:      #9E1B32; /* Crimson Flame */
+  --ua-capstone-gray: #828A8F; /* Capstone Gray */
+  --ua-white:        #ffffff; /* Victory White */
+
+  /* Colors — Secondary */
+  --ua-pachyderm:    #5F6A72; /* Pachyderm */
+  --ua-chimes-gray:  #C1C6C9; /* Chimes Gray */
+  --ua-black:        #000000; /* Legends Black */
+
+  /* Derived / Semantic */
+  --ua-crimson-glow: rgba(158, 27, 50, 0.35);
+  --ua-overlay:      rgba(0, 0, 0, 0.5);
+
+  /* Typography */
+  --font-trade-gothic:
+    'Trade Gothic Bold Condensed No. 20',
+    'Trade Gothic LT Std Condensed',
+    'Trade Gothic LT Std',
+    'Trade Gothic',
+    'Arial Narrow',
+    'Helvetica Neue',
+    Arial,
+    sans-serif;
+
+  --font-trade-gothic-regular:
+    'Trade Gothic LT Std',
+    'Trade Gothic',
+    'Arial Narrow',
+    'Helvetica Neue',
+    Arial,
+    sans-serif;
+
+  --font-minion-pro:
+    'Minion Pro',
+    Georgia,
+    'Times New Roman',
+    serif;
+
+  /* Z-index scale */
+  --z-explore-card: 50;
+  --z-backdrop: 100;
+  --z-card:     101;
+  --z-navbar:   150;
+  --z-chrome:   200;
+
+  /* Base page styles */
+  font: 16px/1.5 var(--font-trade-gothic-regular);
+  color: #333;
+  background: var(--ua-white);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ─── Reset ───────────────────────────────────────────────────────────────── */
+
+body {
+  margin: 0;
+}
+
+#root {
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+}
