@@ -25,7 +25,10 @@ function LandmarkDetailView({ landmark, onClose, topInset }) {
   const isDragging = useRef(false);
   const startY = useRef(0);
   const onCloseRef = useRef(onClose);
-  onCloseRef.current = onClose;
+
+  useEffect(() => {
+    onCloseRef.current = onClose;
+  }, [onClose]);
 
   // Ref-based guard so handleClose can't be triggered twice simultaneously
   // (e.g. backdrop tap and drag threshold hit at the same moment).

@@ -391,6 +391,70 @@
 }
 
 
+/* ══ Map Zoom Controls ═══════════════════════════════════════════════════════ */
+
+/* Custom zoom button pill — mirrors the navbar pill design:
+   crimson background, full border-radius, crimson-glow shadow.
+   Positioned absolute within MapComponent's relative wrapper at z-index 820
+   (same as --z-navbar) so it sits above map tiles but is covered by the
+   LandmarkDetailView backdrop (z-index 1050) when the detail sheet is open. */
+.map-zoom-controls {
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  z-index: 820; /* --z-navbar */
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  background-color: var(--ua-crimson);
+  border-radius: 9999px;
+  padding: 6px;
+  box-shadow: 0 4px 24px var(--ua-crimson-glow);
+}
+
+.map-zoom-btn {
+  width: 36px;
+  height: 36px;
+  background-color: transparent;
+  border: none;
+  border-radius: 9999px;
+  color: rgba(255, 255, 255, 0.85);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.map-zoom-btn:active {
+  background-color: var(--ua-white);
+  color: var(--ua-crimson);
+}
+
+/* Thin separator between zoom buttons and the follow-me button */
+.map-zoom-divider {
+  height: 1px;
+  background-color: rgba(255, 255, 255, 0.25);
+  margin: 2px 0;
+}
+
+/* Active state — inverted to match navbar active-tab pattern */
+.map-zoom-btn--active {
+  background-color: var(--ua-white);
+  color: var(--ua-crimson);
+}
+
+/* Attribution sits in the top-right corner (see mapComponent.jsx).
+   Keep it compact so it doesn't cover the map. !important is needed because
+   Leaflet's stylesheet may be injected after ours in Vite's bundle. */
+.leaflet-control-attribution {
+  font-size: 10px !important;
+  line-height: 1.4;
+  max-width: 220px;
+  text-align: right;
+}
+
+
 /* ══ List View ═══════════════════════════════════════════════════════════════ */
 
 /* Outer scroll container — grows to fill its flex parent.

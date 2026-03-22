@@ -1,10 +1,11 @@
 import { useState, useRef, useLayoutEffect } from 'react';
-import { LayoutGrid, BookOpen, Layers, MapPin, List } from 'lucide-react';
+import { LayoutGrid, BookOpen, Layers, MapPin, List, Map } from 'lucide-react';
 import NavbarTester from './testers/NavbarTester.jsx';
 import LandmarkDetailTester from './testers/LandmarkDetailTester.jsx';
 import ExploreCardTester from './testers/ExploreCardTester.jsx';
 import PinCardTester from './testers/PinCardTester.jsx';
 import ListViewTester from './testers/ListViewTester.jsx';
+import MapComponentTester from './testers/MapComponentTester.jsx';
 
 // ─── Tester Registry ──────────────────────────────────────────────────────────
 
@@ -14,6 +15,7 @@ const TESTERS = [
     { id: 'explore-card',    label: 'Explore',   icon: Layers,     component: ExploreCardTester },
     { id: 'pin-card',        label: 'Pin Card',  icon: MapPin,     component: PinCardTester },
     { id: 'list-view',       label: 'List',      icon: List,       component: ListViewTester },
+    { id: 'map',             label: 'Map',       icon: Map,        component: MapComponentTester },
 ];
 
 // ─── Root Tester Shell ────────────────────────────────────────────────────────

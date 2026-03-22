@@ -40,13 +40,15 @@
     'Times New Roman',
     serif;
 
-  /* Z-index scale */
-  --z-explore-card: 50;
-  --z-pin-card:     60;
-  --z-backdrop: 100;
-  --z-card:     101;
-  --z-navbar:   150;
-  --z-chrome:   200;
+  /* Z-index scale
+     Leaflet's internal panes go up to z-index 700 (popup pane).
+     All app overlays must sit above that baseline. */
+  --z-explore-card: 800;
+  --z-pin-card:     810;
+  --z-navbar:       820;
+  --z-backdrop:     1050;
+  --z-card:         1051;
+  --z-chrome:       1100;
 
   /* Base page styles */
   font: 16px/1.5 var(--font-trade-gothic-regular);
