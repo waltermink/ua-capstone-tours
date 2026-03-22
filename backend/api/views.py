@@ -7,7 +7,7 @@ from rest_framework.response import Response # type: ignore
 from rest_framework import generics # type: ignore
 from rest_framework.exceptions import ValidationError # type: ignore
 from locations_db.models import Landmark, LandmarkPhoto
-from .serializers import LandmarkListSerializer, LandmarkDetailSerializer, LandmarkNearbySerializer
+from .serializers import LandmarkListSerializer, LandmarkDetailSerializer, LandmarkNearbySerializer, LandmarkFullListSerializer
 
 @api_view(["GET"])
 # Simple health check endpoint to verify that the API is running
@@ -21,12 +21,33 @@ class LandmarkListView(generics.ListAPIView):
     def get_queryset(self):
         return Landmark.objects.filter(is_published=True).order_by("name")
 
+    def get_serializer_context(self):
+        context = super().get_serializer_context()
+        context['request'] = self.request
+        return context
+
 # Detail view for a single landmark, returns detailed info for one published landmark   
 class LandmarkDetailView(generics.RetrieveAPIView):
     serializer_class = LandmarkDetailSerializer
     
     def get_queryset(self):
         return Landmark.objects.filter(is_published=True)
+    
+    def get_serializer_context(self):
+        context = super().get_serializer_context()
+        context['request'] = self.request
+        return context
+    
+class LandmarkFullListView(generics.ListAPIView):
+    serializer_class = LandmarkFullListSerializer
+
+    def get_queryset(self):
+        return Landmark.objects.filter(is_published=True).order_by("name")
+
+    def get_serializer_context(self):
+        context = super().get_serializer_context()
+        context['request'] = self.request
+        return context
 
 # View to find nearby landmarks based on lat/lon and radius query parameters
 class LandmarkNearbyView(generics.ListAPIView):
@@ -63,3 +84,8 @@ class LandmarkNearbyView(generics.ListAPIView):
             .annotate(distance=DistanceFunc("location", user_point))
             .order_by("distance")
         )
+    
+    def get_serializer_context(self):
+        context = super().get_serializer_context()
+        context['request'] = self.request
+        return context

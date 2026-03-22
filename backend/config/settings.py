@@ -16,8 +16,20 @@ import os
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+STORAGES = {
+    "default": {
+        "BACKEND": "storages.backends.gcloud.GoogleCloudStorage",
+    },
+    "staticfiles": {
+        "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
+    },
+}
+GS_BUCKET_NAME = os.getenv('GS_BUCKET_NAME', 'ua-capstone-media')
+GS_PROJECT_ID = 'campus-tour-backend'
+GS_DEFAULT_ACL = 'publicRead'
+GS_QUERYSTRING_AUTH = False
+MEDIA_URL = f'https://storage.googleapis.com/{os.getenv("GS_BUCKET_NAME", "ua-capstone-media")}/'
+
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
@@ -42,6 +54,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     "django.contrib.gis",
+    "storages",
     "locations_db.apps.LocationsDbConfig",
     "api.apps.ApiConfig",
     "rest_framework",
@@ -138,7 +151,6 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATIC_ROOT = BASE_DIR / 'staticfiles'
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
