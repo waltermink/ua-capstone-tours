@@ -5731,3 +5731,5 @@
 backend/api/__pycache__/serializers.cpython-312.pyc
 backend/api/__pycache__/tests.cpython-312.pyc
 backend/config/__pycache__/settings.cpython-312.pyc
+backend/env.yaml
+backend/createuser.py
