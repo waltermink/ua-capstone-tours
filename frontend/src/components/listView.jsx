@@ -17,7 +17,7 @@ function ListView({ landmarks, onSelectLandmark }) {
         const firstPhoto = landmark.photos?.[0];
         return (
           <div
-            key={i}
+            key={landmark.id}
             className={`lv-entry${i < landmarks.length - 1 ? ' lv-entry--divided' : ''}`}
             onClick={() => onSelectLandmark?.(landmark)}
             role="button"

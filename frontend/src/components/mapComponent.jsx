@@ -9,7 +9,7 @@ export default function MapComponent({ onPinClick, onProximityEnter, onMapClick,
     const mapRef = useRef(null);          // ref for the Leaflet map instance
 
     // ── Follow-me toggle state ────────────────────────────────────────────────
-    const [isFollowing, setIsFollowing] = useState(false);
+    const [isFollowing, setIsFollowing] = useState(true);
 
     // ── Refs ──────────────────────────────────────────────────────────────────
     // Callback ref — holds the latest prop callbacks so the one-time Leaflet
@@ -20,14 +20,14 @@ export default function MapComponent({ onPinClick, onProximityEnter, onMapClick,
     // satisfy the react-hooks/refs lint rule.
     const callbacksRef   = useRef({ onPinClick, onProximityEnter, onMapClick, onPinMove });
     const activePinIdRef = useRef(activePinId);
-    const isFollowingRef = useRef(false);
+    const isFollowingRef = useRef(true);
     const lastPositionRef = useRef(null); // { lat, lng } of most recent GPS fix
 
     useEffect(() => {
         callbacksRef.current   = { onPinClick, onProximityEnter, onMapClick, onPinMove };
         activePinIdRef.current = activePinId;
         isFollowingRef.current = isFollowing;
-    });
+    }); // intentionally no dep array — runs after every render to keep refs current
 
     // ── Follow-me toggle handler ──────────────────────────────────────────────
     const handleFollowToggle = () => {
@@ -86,6 +86,7 @@ export default function MapComponent({ onPinClick, onProximityEnter, onMapClick,
                     fillOpacity: 0.08,
                     weight: 1.5,
                     opacity: 0.35,
+                    interactive: false,  // pass clicks through to markers beneath
                 }).addTo(map);
 
                 // On first GPS fix, fly to the user's actual location at walking-tour zoom
@@ -192,13 +193,22 @@ export default function MapComponent({ onPinClick, onProximityEnter, onMapClick,
 
         // 8. Load landmarks from Django API and push into the shared array.
         fetch('https://ua-capstone-backend-845958693022.us-central1.run.app/api/landmarks/')
-            .then(response => response.json())
+            .then(r => { if (!r.ok) throw new Error(r.status); return r.json(); })
             .then(data => {
 
                 data.forEach(point => {
 
-                    // Create marker and attach click handler
-                    point._marker = L.marker([point.lat, point.lon]).addTo(map);  // API returns "lon" not "lng"
+                    // Create crimson pin marker and attach click handler
+                    const pinIcon = L.divIcon({
+                        className: '',
+                        html: `<svg width="24" height="32" viewBox="0 0 24 32" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12 0C5.373 0 0 5.373 0 12c0 9 12 20 12 20S24 21 24 12C24 5.373 18.627 0 12 0z" fill="#772432"/>
+                            <circle cx="12" cy="12" r="4" fill="white"/>
+                        </svg>`,
+                        iconSize: [24, 32],
+                        iconAnchor: [12, 32],
+                    });
+                    point._marker = L.marker([point.lat, point.lon], { icon: pinIcon }).addTo(map);  // API returns "lon" not "lng"
 
                     point._marker.on('click', function(e) {
                         // Stop propagation so the map 'click' (which calls onMapClick)

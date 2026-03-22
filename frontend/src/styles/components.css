@@ -537,3 +537,35 @@
   color: var(--ua-capstone-gray);
   flex-shrink: 0;
 }
+
+
+/* ══ List Page ═══════════════════════════════════════════════════════════════ */
+
+/* Page-level header — sits above the scrollable landmark list. */
+.lp-header {
+  padding: 20px 20px 16px;
+  background-color: var(--ua-white);
+  border-bottom: 1px solid var(--ua-chimes-gray);
+  flex-shrink: 0;
+}
+
+.lp-title {
+  margin: 0;
+  font-family: var(--font-trade-gothic);
+  font-size: 28px;
+  font-weight: 800;
+  color: var(--ua-crimson);
+  letter-spacing: 0.02em;
+  line-height: 1.1;
+}
+
+/* Loading / error message — centered in the remaining flex space. */
+.lp-status {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-trade-gothic-regular);
+  font-size: 16px;
+  color: var(--ua-capstone-gray);
+}

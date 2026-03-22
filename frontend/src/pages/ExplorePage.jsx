@@ -63,6 +63,7 @@ function ExplorePage({ activeTab, onTabChange }) {
     // Called when a landmark pin is tapped. `point` is the list-level object
     // { id, name, short_description, lat, lon } from the /api/landmarks/ fetch.
     const handlePinClick = useCallback(async (point, viewportX, viewportY) => {
+        if (!point.id) return;
         setExploreCard(null);
         try {
             const full = await fetchDetail(point.id);
@@ -74,7 +75,7 @@ function ExplorePage({ activeTab, onTabChange }) {
 
     // Called when the user walks within 200 ft of a landmark.
     const handleProximityEnter = useCallback(async (point) => {
-        if (pinCardRef.current || detailLandmarkRef.current) return;
+        if (!point.id || pinCardRef.current || detailLandmarkRef.current) return;
         try {
             const full = await fetchDetail(point.id);
             setExploreCard(full);

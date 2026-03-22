@@ -11,7 +11,7 @@ function Navbar({ activeTab, onTabChange }) {
     return (
         <div className="navbar-wrapper">
             <div className="navbar-pill">
-                {TABS.map(({ id, label, icon: Icon }) => {
+                {TABS.map(({id, label, icon: Icon}) => {
                     const isActive = activeTab === id;
                     return (
                         <button
