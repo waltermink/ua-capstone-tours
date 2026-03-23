@@ -1,0 +1,571 @@
+/* ─────────────────────────────────────────────────────────────────────────────
+   UA Campus Tours — Component Styles
+   All values reference the design tokens defined in index.css :root.
+   ───────────────────────────────────────────────────────────────────────────── */
+
+
+/* ══ Navbar ══════════════════════════════════════════════════════════════════ */
+
+.navbar-wrapper {
+  padding: 12px 16px 20px; /* extra bottom padding for home indicator on iOS */
+  display: flex;
+  justify-content: center;
+}
+
+.navbar-pill {
+  display: flex;
+  background-color: var(--ua-crimson);
+  border-radius: 9999px;
+  padding: 6px;
+  gap: 4px;
+  box-shadow: 0 4px 24px var(--ua-crimson-glow);
+  width: 100%;
+  max-width: 420px;
+}
+
+.navbar-tab {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+  padding: 8px 4px;
+  border-radius: 9999px;
+  border: none;
+  cursor: pointer;
+  background-color: transparent;
+  color: rgba(255, 255, 255, 0.75);
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.navbar-tab--active {
+  background-color: var(--ua-white);
+  color: var(--ua-crimson);
+}
+
+.navbar-tab-label {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  font-family: var(--font-trade-gothic-regular);
+}
+
+
+/* ══ Landmark Detail View ════════════════════════════════════════════════════ */
+
+.ldv-backdrop {
+  position: fixed;
+  inset: 0;
+  background-color: var(--ua-overlay);
+  z-index: var(--z-backdrop);
+  /* opacity is managed inline so entry/exit fades are driven by JS state */
+  transition: opacity 0.3s ease;
+}
+
+/* --ldv-top is set via inline style when a topInset prop is provided;
+   otherwise falls back to 8vh so the card always fills most of the screen.
+   transform and transition are managed inline (see landmarkDetailView.jsx)
+   because they are driven by drag and animation state. */
+.ldv-card {
+  position: fixed;
+  top: var(--ldv-top, 8vh);
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: var(--z-card);
+  background-color: var(--ua-white);
+  border-radius: 20px 20px 0 0;
+  display: flex;
+  flex-direction: column;
+  /* Start fully off-screen below the viewport so it can slide up on entry. */
+  transform: translateY(100vh);
+}
+
+/* JS adds this class one frame after mount, triggering the entry transition. */
+.ldv-card--entered {
+  transform: translateY(0);
+}
+
+/* The entire header area is the drag target, not just the pill */
+.ldv-header {
+  padding: 16px 20px 12px;
+  flex-shrink: 0;
+  touch-action: none;
+  user-select: none;
+  cursor: grab;
+}
+
+.ldv-drag-pill {
+  width: 40px;
+  height: 4px;
+  background-color: var(--ua-capstone-gray);
+  border-radius: 2px;
+  margin: 0 auto 18px;
+}
+
+.ldv-title-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.ldv-title {
+  margin: 0;
+  font-size: 30px;
+  font-weight: 800;
+  font-family: var(--font-trade-gothic);
+  color: var(--ua-crimson);
+  text-align: left;
+  letter-spacing: 0.02em;
+  line-height: 1.1;
+  flex: 1;
+}
+
+.ldv-close-btn {
+  background: var(--ua-white);
+  border: 2px solid var(--ua-capstone-gray);
+  border-radius: 50%;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  cursor: pointer;
+  color: var(--ua-capstone-gray);
+  flex-shrink: 0;
+  margin-left: 12px;
+  margin-top: 2px;
+}
+
+.ldv-divider {
+  height: 1px;
+  background-color: var(--ua-chimes-gray);
+  margin-inline: 20px;
+  flex-shrink: 0;
+}
+
+.ldv-scroll-area {
+  flex: 1;
+  overflow-y: auto;
+  padding: 16px 20px 100px; /* 100px bottom clears the fixed navbar */
+}
+
+.ldv-carousel {
+  position: relative;
+  margin-bottom: 16px;
+}
+
+.ldv-carousel-img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 12px;
+}
+
+.ldv-carousel-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(0, 0, 0, 0.4);
+  color: var(--ua-white);
+  border: none;
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ldv-carousel-btn--prev { left:  8px; }
+.ldv-carousel-btn--next { right: 8px; }
+
+.ldv-dots {
+  display: flex;
+  justify-content: center;
+  gap: 6px;
+  margin-top: 8px;
+}
+
+.ldv-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background-color: var(--ua-chimes-gray);
+}
+
+.ldv-dot--active {
+  background-color: var(--ua-crimson);
+}
+
+.ldv-description {
+  margin: 0;
+  color: #333;
+  line-height: 1.7;
+  text-align: left;
+  font-family: var(--font-minion-pro);
+  font-size: 16px;
+}
+
+
+/* ══ Explore Card ════════════════════════════════════════════════════════════ */
+
+/* The card is fixed to the bottom of the screen, floating above the navbar.
+   `bottom` is set via inline style based on the navbarHeight prop.
+   `transform`, `opacity`, and `transition` are also set inline when an
+   active drag or exit animation is in progress (see exploreCard.jsx). */
+.ec-card {
+  position: fixed;
+  left: 16px;
+  right: 16px;
+  z-index: var(--z-explore-card);
+  background-color: var(--ua-white);
+  border-radius: 16px;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.15);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 14px;
+  cursor: pointer;
+
+  /* Prevents the browser from intercepting touch events for scrolling or
+     map panning. Combined with preventDefault() in the touch handlers, this
+     ensures swipes on the card never bleed through to content underneath. */
+  touch-action: none;
+
+  /* Initial hidden state — starts below the viewport so it can slide up.
+     JS adds .ec-card--entered one frame after mount to trigger the transition. */
+  opacity: 0;
+  transform: translateY(200px);
+}
+
+.ec-card--entered {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Small photo of the landmark shown on the left side of the card.
+   Only rendered when the landmark has photos — no placeholder fallback. */
+.ec-thumbnail {
+  width: 64px;
+  height: 64px;
+  border-radius: 10px;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
+/* Small "NEARBY" label that sits above the landmark name, letting the user
+   know why the card appeared. Matches the label style used in the navbar. */
+.ec-nearby-label {
+  margin: 0;
+  font-family: var(--font-trade-gothic-regular);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ua-capstone-gray);
+}
+
+/* Holds the landmark name and short description, takes all remaining space. */
+.ec-body {
+  flex: 1;
+  min-width: 0; /* allows text-overflow: ellipsis to work inside a flex child */
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.ec-name {
+  margin: 0;
+  font-family: var(--font-trade-gothic);
+  font-size: 16px;
+  font-weight: 800;
+  color: var(--ua-crimson);
+  letter-spacing: 0.02em;
+  line-height: 1.1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.ec-description {
+  margin: 0;
+  font-family: var(--font-minion-pro);
+  font-size: 13px;
+  color: var(--ua-pachyderm);
+  line-height: 1.4;
+  /* Clamp to 2 lines maximum */
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.ec-chevron {
+  color: var(--ua-capstone-gray);
+  flex-shrink: 0;
+}
+
+
+/* ══ Pin Card ════════════════════════════════════════════════════════════════ */
+
+/* Tooltip-style popover that appears above a tapped map pin.
+   `left` and `top` are set via inline style (anchorX / anchorY props).
+   The transform centers the card horizontally on the pin and lifts it 10px
+   above the anchor to make room for the downward-pointing ::after triangle.
+   `filter: drop-shadow` is used instead of `box-shadow` so the shadow wraps
+   the triangle shape as well as the rounded rectangle. */
+.pc-card {
+  position: fixed;
+  z-index: var(--z-pin-card);
+  background-color: var(--ua-white);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
+  width: max-content;
+  max-width: 240px;
+  cursor: pointer;
+  touch-action: none;
+  filter: drop-shadow(0 4px 16px rgba(0, 0, 0, 0.18));
+
+  /* Initial hidden state: centered on anchor, floated above it, scaled down. */
+  transform: translateX(-50%) translateY(calc(-100% - 10px)) scale(0.85);
+  opacity: 0;
+}
+
+/* JS adds this class one frame after mount to trigger the entry animation.
+   The transition string is set inline (same pattern as ec-card / ldv-card). */
+.pc-card--entered {
+  transform: translateX(-50%) translateY(calc(-100% - 10px)) scale(1);
+  opacity: 1;
+}
+
+/* Downward-pointing triangle pointer at the bottom center of the card.
+   Its height (10px) matches the vertical gap in the transform above. */
+.pc-card::after {
+  content: '';
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+  border-top: 10px solid var(--ua-white);
+}
+
+/* Thumbnail — 48×48 px (more compact than ec-thumbnail).
+   Only rendered when the landmark has at least one photo. */
+.pc-thumbnail {
+  width: 48px;
+  height: 48px;
+  border-radius: 8px;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
+/* Landmark name — takes remaining space, truncates with ellipsis. */
+.pc-name {
+  margin: 0;
+  flex: 1;
+  min-width: 0;
+  font-family: var(--font-trade-gothic);
+  font-size: 15px;
+  font-weight: 800;
+  color: var(--ua-crimson);
+  letter-spacing: 0.02em;
+  line-height: 1.1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.pc-chevron {
+  color: var(--ua-capstone-gray);
+  flex-shrink: 0;
+}
+
+
+/* ══ Map Zoom Controls ═══════════════════════════════════════════════════════ */
+
+/* Custom zoom button pill — mirrors the navbar pill design:
+   crimson background, full border-radius, crimson-glow shadow.
+   Positioned absolute within MapComponent's relative wrapper at z-index 820
+   (same as --z-navbar) so it sits above map tiles but is covered by the
+   LandmarkDetailView backdrop (z-index 1050) when the detail sheet is open. */
+.map-zoom-controls {
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  z-index: 820; /* --z-navbar */
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  background-color: var(--ua-crimson);
+  border-radius: 9999px;
+  padding: 6px;
+  box-shadow: 0 4px 24px var(--ua-crimson-glow);
+}
+
+.map-zoom-btn {
+  width: 36px;
+  height: 36px;
+  background-color: transparent;
+  border: none;
+  border-radius: 9999px;
+  color: rgba(255, 255, 255, 0.85);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.map-zoom-btn:active {
+  background-color: var(--ua-white);
+  color: var(--ua-crimson);
+}
+
+/* Thin separator between zoom buttons and the follow-me button */
+.map-zoom-divider {
+  height: 1px;
+  background-color: rgba(255, 255, 255, 0.25);
+  margin: 2px 0;
+}
+
+/* Active state — inverted to match navbar active-tab pattern */
+.map-zoom-btn--active {
+  background-color: var(--ua-white);
+  color: var(--ua-crimson);
+}
+
+/* Attribution sits in the top-right corner (see mapComponent.jsx).
+   Keep it compact so it doesn't cover the map. !important is needed because
+   Leaflet's stylesheet may be injected after ours in Vite's bundle. */
+.leaflet-control-attribution {
+  font-size: 10px !important;
+  line-height: 1.4;
+  max-width: 220px;
+  text-align: right;
+}
+
+
+/* ══ List View ═══════════════════════════════════════════════════════════════ */
+
+/* Outer scroll container — grows to fill its flex parent.
+   100px bottom padding clears the fixed navbar (same as ldv-scroll-area). */
+.lv-scroll-area {
+  overflow-y: auto;
+  flex: 1;
+  min-height: 0;
+  background-color: var(--ua-white);
+  padding-bottom: 100px;
+}
+
+/* Each landmark entry row. */
+.lv-entry {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 14px 16px;
+  cursor: pointer;
+  background-color: var(--ua-white);
+  transition: background-color 0.15s ease;
+}
+
+.lv-entry:active {
+  background-color: #f5f5f5;
+}
+
+/* Bottom border divider — applied to all entries except the last. */
+.lv-entry--divided {
+  border-bottom: 1px solid var(--ua-chimes-gray);
+}
+
+/* Thumbnail — 64×64 px, matches ExploreCard thumbnail dimensions. */
+.lv-thumbnail {
+  width: 64px;
+  height: 64px;
+  border-radius: 10px;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
+/* Text content area — takes remaining space. */
+.lv-body {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+/* Landmark name — Trade Gothic Bold, crimson. */
+.lv-name {
+  margin: 0;
+  font-family: var(--font-trade-gothic);
+  font-size: 17px;
+  font-weight: 800;
+  color: var(--ua-crimson);
+  letter-spacing: 0.02em;
+  line-height: 1.1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Short description — Minion Pro, secondary gray, 2-line clamp. */
+.lv-description {
+  margin: 0;
+  font-family: var(--font-minion-pro);
+  font-size: 13px;
+  color: var(--ua-pachyderm);
+  line-height: 1.4;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* Chevron icon — visual tap affordance. */
+.lv-chevron {
+  color: var(--ua-capstone-gray);
+  flex-shrink: 0;
+}
+
+
+/* ══ List Page ═══════════════════════════════════════════════════════════════ */
+
+/* Page-level header — sits above the scrollable landmark list. */
+.lp-header {
+  padding: 20px 20px 16px;
+  background-color: var(--ua-white);
+  border-bottom: 1px solid var(--ua-chimes-gray);
+  flex-shrink: 0;
+}
+
+.lp-title {
+  margin: 0;
+  font-family: var(--font-trade-gothic);
+  font-size: 28px;
+  font-weight: 800;
+  color: var(--ua-crimson);
+  letter-spacing: 0.02em;
+  line-height: 1.1;
+}
+
+/* Loading / error message — centered in the remaining flex space. */
+.lp-status {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-trade-gothic-regular);
+  font-size: 16px;
+  color: var(--ua-capstone-gray);
+}
