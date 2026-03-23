@@ -36,11 +36,11 @@ class LandmarkListSerializer(serializers.ModelSerializer):
 class LandmarkFullListSerializer(serializers.ModelSerializer):
     lat = serializers.SerializerMethodField()
     lon = serializers.SerializerMethodField()
-    cover_photo = serializers.SerializerMethodField()
+    photos = serializers.SerializerMethodField()
 
     class Meta:
         model = Landmark
-        fields = ["id", "name", "short_description", "long_description", "lat", "lon", "address", "cover_photo"]
+        fields = ["id", "name", "short_description", "long_description", "lat", "lon", "address", "photos"]
 
     def get_lat(self, obj):
         return obj.location.y if obj.location else None
@@ -48,13 +48,19 @@ class LandmarkFullListSerializer(serializers.ModelSerializer):
     def get_lon(self, obj):
         return obj.location.x if obj.location else None
 
-    def get_cover_photo(self, obj):
+    def get_photos(self, obj):
         first_photo = obj.photos.first()
         if not first_photo or not first_photo.image:
-            return None
+            return []
         request = self.context.get("request")
         url = first_photo.image.url
-        return request.build_absolute_uri(url) if request else url
+        return [{
+            "id": first_photo.id,
+            "url": request.build_absolute_uri(url) if request else url,
+            "caption": first_photo.caption,
+            "alt_text": first_photo.alt_text,
+            "sort_order": first_photo.sort_order,
+        }]
 
 # Serializes detailed info about a single landmark for the detail view
 class LandmarkDetailSerializer(serializers.ModelSerializer):
