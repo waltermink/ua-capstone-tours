@@ -10,7 +10,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }).addTo(map);
 
     // 3. Load landmarks from Django API
-    fetch('http://localhost:8000/api/landmarks/')
+    fetch('https://ua-capstone-backend-845958693022.us-central1.run.app/api/landmarks/')
         .then(response => response.json())
         .then(data => {
 
