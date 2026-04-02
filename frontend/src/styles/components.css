@@ -7,7 +7,7 @@
 /* ══ Navbar ══════════════════════════════════════════════════════════════════ */
 
 .navbar-wrapper {
-  padding: 12px 16px 20px; /* extra bottom padding for home indicator on iOS */
+  padding: 12px 16px max(20px, env(safe-area-inset-bottom));
   display: flex;
   justify-content: center;
 }
@@ -400,8 +400,8 @@
    LandmarkDetailView backdrop (z-index 1050) when the detail sheet is open. */
 .map-zoom-controls {
   position: absolute;
-  top: 16px;
-  left: 16px;
+  top: calc(16px + env(safe-area-inset-top));
+  left: calc(16px + env(safe-area-inset-left));
   z-index: 820; /* --z-navbar */
   display: flex;
   flex-direction: column;
@@ -452,6 +452,15 @@
   line-height: 1.4;
   max-width: 220px;
   text-align: right;
+}
+
+/* Push Leaflet's top-edge control container (attribution, etc.) below the
+   dynamic island / status bar safe area when viewport-fit=cover is active. */
+.leaflet-top {
+  top: env(safe-area-inset-top) !important;
+}
+.leaflet-right {
+  right: env(safe-area-inset-right) !important;
 }
 
 
@@ -631,4 +640,46 @@
   font-weight: 700;
   font-size: 20px;
   width: 100%;   /* spans the full card width */
+}
+
+.cv-field-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.cv-label-text {
+  font-family: var(--font-trade-gothic-regular);
+  font-size: 18px;
+  color: var(--ua-pachyderm);
+  align-self: flex-start;
+}
+
+.cv-text-input-small {
+  width: 100%;
+  box-sizing: border-box;
+  border: 2px solid var(--ua-chimes-gray);
+  border-radius: 8px;
+  background-color: var(--ua-white);
+  font-family: var(--font-minion-pro);
+  outline: none;
+  box-shadow: none;
+  font-size: 14px;
+}
+
+.cv-text-input-small:focus {
+  border: 3px solid var(--ua-crimson);
+}
+
+.cv-dropdown-select {
+  appearance: none;
+  background-color: var(--ua-white);
+  font-family: var(--font-minion-pro);
+  outline: none;
+  box-shadow: none;
+  width: 100%;
+  box-sizing: border-box;
+  border: 2px solid var(--ua-chimes-gray);
+  border-radius: 8px;
+  font-size: 14px;
 }
