@@ -12,7 +12,7 @@
   --ua-black:        #000000; /* Legends Black */
 
   /* Derived / Semantic */
-  --ua-crimson-glow: rgba(158, 27, 50, 0.35);
+  --ua-crimson-glow: rgba(158, 27, 50, 0.5);
   --ua-overlay:      rgba(0, 0, 0, 0.5);
 
   /* Typography */
