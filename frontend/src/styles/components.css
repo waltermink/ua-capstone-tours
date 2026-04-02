@@ -569,3 +569,66 @@
   font-size: 16px;
   color: var(--ua-capstone-gray);
 }
+
+/* ══ Contribute View ═════════════════════════════════════════════════════════ */
+
+.cv-header {
+  padding: 20px 20px 16px;
+  background-color: var(--ua-white);
+  border-bottom: 1px solid var(--ua-chimes-gray);
+  flex-shrink: 0;
+}
+
+.cv-title {
+  margin: 0;
+  font-family: var(--font-trade-gothic);
+  font-size: 28px;
+  font-weight: 800;
+  color: var(--ua-crimson);
+  letter-spacing: 0.02em;
+  line-height: 1.1;
+}
+
+.cv-paragraph {
+  font-family: var(--font-minion-pro);
+  color: var(--ua-pachyderm);
+  font-size: 1rem;
+  margin: 0;
+  text-align: left;
+}
+
+.cv-card {
+  background-color: var(--ua-crimson);
+  border-radius: 20px;
+  box-shadow: 0 4px 24px var(--ua-crimson-glow);
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 100%;
+}
+
+.cv-card-text {
+  font-family: var(--font-minion-pro);
+  color: var(--ua-white);
+  font-size: 1rem;
+  margin: 0;
+  text-align: left;
+}
+
+.cv-get-started-btn {
+  background-color: var(--ua-white);
+  color: var(--ua-crimson);
+  border: none;
+  border-radius: 9999px;
+  padding: 12px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  cursor: pointer;
+  font-family: var(--font-trade-gothic);
+  font-weight: 700;
+  font-size: 20px;
+  width: 100%;   /* spans the full card width */
+}
