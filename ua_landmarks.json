@@ -1,0 +1,451 @@
+[
+  {
+    "_notes": "Fields map directly to the Landmark model: name, short_description, long_description, location [longitude, latitude], address, is_published. 'category' is extra metadata not in the current model.",
+
+    "name": "Lakeside Dining Hall",
+    "category": "Dining",
+    "short_description": "All-you-can-eat residential dining hall in the west campus area, serving a wide variety of cuisines.",
+    "long_description": "Lakeside Dining Hall is Bama Dining's flagship all-you-can-enjoy residential cafeteria, serving the west campus residential community. The menu rotates daily and spans multiple stations: Asian cuisine, home-style Southern entrées, grilled burgers and sandwiches, made-to-order pizza and pasta, a full salad bar, and a dessert station. It is one of the two primary residential cafeterias on campus and is a popular dining destination for students living in the west campus dorm corridor.",
+    "location": { "type": "Point", "coordinates": [-87.5484, 33.2040] },
+    "address": "160 McCorvey Dr, Tuscaloosa, AL 35401",
+    "is_published": true
+  },
+  {
+    "name": "Burke Dining Hall",
+    "category": "Dining",
+    "short_description": "All-you-can-eat residential cafeteria serving the north campus residential community.",
+    "long_description": "Burke Dining Hall is Bama Dining's north campus all-you-can-enjoy residential cafeteria, serving students who live in the northern dorm corridor. The hall offers a rotating menu with stations that include grilled entrées, home-style cooking, international cuisine, pizza and pasta, a deli counter, a salad bar, and desserts. Burke replaced the older Mary B's dining concept and is the go-to cafeteria for north campus residents.",
+    "location": { "type": "Point", "coordinates": [-87.5437, 33.2168] },
+    "address": "920 Hackberry Ln, Tuscaloosa, AL 35401",
+    "is_published": true
+  },
+  {
+    "name": "Ferguson Center Food Court",
+    "category": "Dining",
+    "short_description": "Food court inside the Ferguson Student Center featuring Panda Express, Chick-fil-A, Subway, and more.",
+    "long_description": "The Ferguson Student Center food court is the most centrally located dining hub on campus. Located on the ground floor of the Ferguson Student Center, it houses several national fast-casual chains including Panda Express, Chick-fil-A, Subway, and Auntie Anne's Pretzels. It is a popular spot between classes due to its central location near the Quad and its quick-service options. The food court is open during all regular business hours and is one of the highest-traffic dining spots on campus.",
+    "location": { "type": "Point", "coordinates": [-87.5428, 33.2121] },
+    "address": "200 Campus Dr E, Tuscaloosa, AL 35401",
+    "is_published": true
+  },
+  {
+    "name": "Java City at Gorgas Library",
+    "category": "Dining",
+    "short_description": "Coffee shop on the ground floor of Gorgas Library serving Java City coffee and light snacks.",
+    "long_description": "Java City at Gorgas Library is a campus coffee shop located on the ground floor of the Amelia Gayle Gorgas Library, right in the heart of the Quad. It serves Java City brand coffee drinks, teas, and light snacks — making it a convenient caffeine stop for students studying in the library or heading to nearby classes. It is one of the most accessible café locations on the historic core of campus.",
+    "location": { "type": "Point", "coordinates": [-87.5412, 33.2090] },
+    "address": "801 Capstone Dr, Tuscaloosa, AL 35401",
+    "is_published": true
+  },
+  {
+    "name": "Stewart's Corner at Lloyd Hall",
+    "category": "Dining",
+    "short_description": "Multi-concept dining location on the first floor of Lloyd Hall with Chick-fil-A, Pizza Hut Express, and Boar's Head Deli.",
+    "long_description": "Stewart's Corner occupies the first floor of Lloyd Hall and operates as a multi-concept dining destination in one of campus's most central academic buildings. It features a Chick-fil-A Express, Pizza Hut Express, a Boar's Head Deli counter, and Fresh2Go grab-and-go options including pre-made salads, fruit, hummus, smoothies, and smoothie bowls. Because Lloyd Hall sits at the geographic center of campus, Stewart's Corner sees a steady stream of students between morning and afternoon classes.",
+    "location": { "type": "Point", "coordinates": [-87.5408, 33.2080] },
+    "address": "414 University Blvd E, Tuscaloosa, AL 35401",
+    "is_published": true
+  },
+  {
+    "name": "Cooper Café at Hewson Hall",
+    "category": "Dining",
+    "short_description": "Campus café inside Hewson Hall serving Java City coffee, smoothies, and healthy snack options.",
+    "long_description": "Cooper Café is a Bama Dining retail café located inside Hewson Hall, one of the university's academic buildings. It serves Java City coffee drinks — including hot, iced, and blended options — alongside shakes, smoothies, and light snacks. Many items can be made vegan-friendly or lactose-free. Open Monday through Friday, Cooper Café is a convenient stop for students and faculty in the science and engineering corridor of campus.",
+    "location": { "type": "Point", "coordinates": [-87.5444, 33.2097] },
+    "address": "Hewson Hall, Tuscaloosa, AL 35401",
+    "is_published": true
+  },
+  {
+    "name": "Shelby Hall Café",
+    "category": "Dining",
+    "short_description": "Low-key campus coffee kiosk tucked inside the atrium of Shelby Hall — a hidden gem most students don't know about.",
+    "long_description": "The Shelby Hall Café is a small coffee and snack kiosk located inside the lobby atrium of Shelby Hall, the university's home for Chemistry & Biochemistry and Geography. It's not prominently advertised and flies under most students' radars, making it a beloved low-key spot for grad students and faculty in the sciences. It serves coffee, espresso-based drinks, and light snacks. Its quiet atmosphere and convenient location in one of campus's biggest research buildings makes it a favorite study fuel stop for those in the know.",
+    "location": { "type": "Point", "coordinates": [-87.5437, 33.2127] },
+    "address": "250 Hackberry Ln, Tuscaloosa, AL 35401",
+    "is_published": true
+  },
+
+  {
+    "name": "Shelby Hall",
+    "category": "Teaching",
+    "short_description": "Home of Chemistry & Biochemistry and the Geography department, with state-of-the-art research labs throughout.",
+    "long_description": "Shelby Hall is a 227,000-square-foot academic research center completed in 2004, named in honor of U.S. Senator Richard Craig Shelby. It houses the Department of Chemistry and Biochemistry, the Department of Geography, and several interdisciplinary research centers focused on transportation, energy, biosciences, and chemical and materials sciences. The building features modern lecture halls, teaching labs, and graduate research facilities. Students in chemistry, biochemistry, and geography courses will spend significant time in this building.",
+    "location": { "type": "Point", "coordinates": [-87.5437, 33.2127] },
+    "address": "250 Hackberry Ln, Tuscaloosa, AL 35401",
+    "is_published": true
+  },
+  {
+    "name": "Farrah Hall",
+    "category": "Teaching",
+    "short_description": "Historic classroom and office building on the Quad housing Criminal Justice and Law School courses.",
+    "long_description": "Built in 1927 and named after Albert J. Farrah, Dean of the School of Law from 1913 to 1944, Farrah Hall is one of the historic academic buildings that frames the University of Alabama Quad. It houses classroom and office space for the School of Law and the Department of Criminal Justice. The building features large lecture halls with the classic architecture characteristic of buildings constructed along the Quad. Its location at the center of campus makes it a landmark for both academic and campus life.",
+    "location": { "type": "Point", "coordinates": [-87.5402, 33.2083] },
+    "address": "101 Paul W. Bryant Dr, Tuscaloosa, AL 35401",
+    "is_published": true
+  },
+  {
+    "name": "Lloyd Hall",
+    "category": "Teaching",
+    "short_description": "Central academic building on the Quad offering general education and liberal arts courses across multiple departments.",
+    "long_description": "Built in 1927 and named after James Bonner Lloyd, Lloyd Hall is one of the most frequently used classroom buildings on campus due to its central location at the heart of the Quad. It houses a wide range of general education courses and departmental classes across the humanities and social sciences. The building also contains Stewart's Corner, a popular multi-concept dining location on its first floor. Its position on the Quad makes it one of the most recognizable and trafficked buildings on campus.",
+    "location": { "type": "Point", "coordinates": [-87.5408, 33.2080] },
+    "address": "414 University Blvd E, Tuscaloosa, AL 35401",
+    "is_published": true
+  },
+  {
+    "name": "Bidgood Hall",
+    "category": "Teaching",
+    "short_description": "Business school classroom building for the Culverhouse College of Business, known for its seminar-style classrooms.",
+    "long_description": "Built in 1928 and named after Lee Bidgood, the first Dean of the College of Commerce and Business Administration, Bidgood Hall is one of the core academic buildings of the Culverhouse College of Business. It is known for its discussion-based, seminar-style classroom layout that facilitates close interaction between students and professors. Business majors frequently take foundational and upper-division courses here. The building is part of the Culverhouse complex south of the Quad.",
+    "location": { "type": "Point", "coordinates": [-87.5425, 33.2079] },
+    "address": "361 Stadium Dr, Tuscaloosa, AL 35401",
+    "is_published": true
+  },
+  {
+    "name": "ten Hoor Hall",
+    "category": "Teaching",
+    "short_description": "Humanities and performing arts building housing Philosophy, Political Science, and Theater & Dance.",
+    "long_description": "Named after Marten ten Hoor, a former Dean of the College of Arts and Sciences, ten Hoor Hall is one of the primary academic buildings for the humanities and performing arts at UA. It is home to the departments of Philosophy, Political Science, and Theatre and Dance. The building contains a mix of small seminar rooms and larger lecture halls, and supports departmental office space for faculty. Students in politics, philosophy, and the performing arts will frequently attend classes here.",
+    "location": { "type": "Point", "coordinates": [-87.5444, 33.2100] },
+    "address": "226 ten Hoor Hall, Tuscaloosa, AL 35401",
+    "is_published": true
+  },
+  {
+    "name": "Reese Phifer Hall",
+    "category": "Teaching",
+    "short_description": "Home of the College of Communication and Information Sciences, housing journalism, advertising, PR, and media programs.",
+    "long_description": "Reese Phifer Hall is the home of the University of Alabama's College of Communication and Information Sciences (C&IS), which offers programs in journalism, advertising, public relations, telecommunication and film, and library and information studies. The building features modern media production studios, newsrooms, and multimedia labs used for hands-on training in broadcasting, digital media, and print journalism. UA's C&IS is one of the top-ranked communication schools in the Southeast.",
+    "location": { "type": "Point", "coordinates": [-87.5423, 33.2109] },
+    "address": "318 Phifer Rd, Tuscaloosa, AL 35401",
+    "is_published": true
+  },
+  {
+    "name": "Garland Hall",
+    "category": "Teaching",
+    "short_description": "Liberal arts and sciences classroom building on campus, housing English, history, and other humanities courses.",
+    "long_description": "Named after Landon Cabell Garland, one of the university's earliest and most influential administrators, Garland Hall is a central classroom building for the College of Arts and Sciences. It houses courses and faculty offices for the Departments of English and the Humanities, as well as various general education sections. Its location near the Quad makes it a frequently visited building for students fulfilling core curriculum requirements.",
+    "location": { "type": "Point", "coordinates": [-87.5413, 33.2089] },
+    "address": "321 University Blvd E, Tuscaloosa, AL 35401",
+    "is_published": true
+  },
+  {
+    "name": "Gordon Palmer Hall",
+    "category": "Teaching",
+    "short_description": "Natural sciences classroom and lab building for biology, physics, and related STEM disciplines.",
+    "long_description": "Named after Gordon Palmer, a former president of the University of Alabama, Gordon Palmer Hall is a primary teaching and research facility for the natural sciences. It houses classrooms and laboratory spaces for courses in biology, physics, and related sciences. The building serves undergraduate students working through natural science requirements as well as upper-division science majors, and contains faculty office space for several science departments.",
+    "location": { "type": "Point", "coordinates": [-87.5445, 33.2086] },
+    "address": "208 Campus Dr W, Tuscaloosa, AL 35401",
+    "is_published": true
+  },
+  {
+    "name": "Gallalee Hall",
+    "category": "Teaching",
+    "short_description": "Engineering and physics classroom building named after former UA president John Gallalee.",
+    "long_description": "Named after John McLure Gallalee, a former president of the University of Alabama, Gallalee Hall is one of the primary academic facilities for the College of Engineering. It houses lecture halls, classrooms, and faculty offices for physics and engineering courses. The building is a key teaching facility for early-stage engineering coursework and foundational physics instruction at UA.",
+    "location": { "type": "Point", "coordinates": [-87.5437, 33.2086] },
+    "address": "101 Hackberry Ln, Tuscaloosa, AL 35401",
+    "is_published": true
+  },
+  {
+    "name": "North Lawn Hall",
+    "category": "Teaching",
+    "short_description": "Large modern classroom facility with a 12-room suite and a major auditorium, serving a wide range of departments.",
+    "long_description": "North Lawn Hall is one of the largest dedicated classroom facilities on the UA campus. It contains 12 classrooms of varying sizes plus a large auditorium, with a combined seating capacity of nearly 2,000. Due to its size, North Lawn Hall serves courses across virtually every college and department at the university, making it one of the most-visited academic buildings on campus — particularly for large introductory lecture courses.",
+    "location": { "type": "Point", "coordinates": [-87.5431, 33.2101] },
+    "address": "335 University Blvd E, Tuscaloosa, AL 35401",
+    "is_published": true
+  },
+  {
+    "name": "Alston Hall",
+    "category": "Teaching",
+    "short_description": "One of the Culverhouse College of Business's primary academic buildings, offering accounting, finance, and management courses.",
+    "long_description": "Alston Hall is a cornerstone of the Culverhouse College of Business complex. Named after Philip Henry Alston, it houses classroom and office space for accounting, finance, management, and other business disciplines. Culverhouse is one of the premier undergraduate business schools in the South, consistently ranked among the top programs in the region. Business majors will spend much of their upper-division academic career in this building and its neighbors within the Culverhouse complex.",
+    "location": { "type": "Point", "coordinates": [-87.5415, 33.2077] },
+    "address": "361 Stadium Dr, Tuscaloosa, AL 35401",
+    "is_published": true
+  },
+  {
+    "name": "Hardaway Hall",
+    "category": "Teaching",
+    "short_description": "Civil and environmental engineering classroom and lab building in the engineering complex.",
+    "long_description": "Hardaway Hall is one of the academic buildings within the UA engineering complex, housing classrooms, labs, and faculty offices for Civil, Construction, and Environmental Engineering. The building provides students with access to structural and environmental engineering laboratory facilities alongside traditional lecture-style coursework. It is part of the Lee J. Styslinger III College of Engineering's academic building cluster.",
+    "location": { "type": "Point", "coordinates": [-87.5459, 33.2087] },
+    "address": "115 Hackberry Ln, Tuscaloosa, AL 35401",
+    "is_published": true
+  },
+
+  {
+    "name": "Amelia Gayle Gorgas Library",
+    "category": "Library",
+    "short_description": "The University of Alabama's main library, located at the center of the historic Quad.",
+    "long_description": "The Amelia Gayle Gorgas Library is the main library of the University of Alabama, completed in 1939 in the Classical Revival style. Named after Amelia Gayle Gorgas, the wife of Confederate General Josiah Gorgas and a beloved figure in UA history, the library occupies a central position on the historic Quad — built on the site of the original Rotunda that was destroyed during the Civil War. Its five floors contain the university's primary general collections, research databases, study spaces, and special collections. Java City operates a café on the ground floor, making it one of the most visited buildings on campus.",
+    "location": { "type": "Point", "coordinates": [-87.5412, 33.2090] },
+    "address": "801 Capstone Dr, Tuscaloosa, AL 35401",
+    "is_published": true
+  },
+  {
+    "name": "Rodgers Library for Science and Engineering",
+    "category": "Library",
+    "short_description": "The university's science and engineering research library, located in the engineering corridor near Shelby Hall.",
+    "long_description": "The Eric and Sarah Rodgers Library for Science and Engineering is the University of Alabama's dedicated science and technology library. Situated in the engineering and science building corridor near Shelby Hall, it provides specialized collections, databases, and research support for students and faculty in the natural sciences, engineering, mathematics, and computing. The library is known for its extended and sometimes 24-hour access during the academic semester, making it a popular late-night study destination for STEM students.",
+    "location": { "type": "Point", "coordinates": [-87.5445, 33.2120] },
+    "address": "200 Hackberry Ln, Tuscaloosa, AL 35401",
+    "is_published": true
+  },
+  {
+    "name": "Angelo Bruno Business Library",
+    "category": "Library",
+    "short_description": "The dedicated library for the Culverhouse College of Business, housed within the business school complex.",
+    "long_description": "The Angelo Bruno Business Library is the specialized research library for the Culverhouse College of Business at the University of Alabama. Located within the business school building complex, it provides business students and faculty with access to financial databases, industry reports, company filings, business journals, and research support services. The library is a key resource for coursework and research in accounting, finance, management, marketing, and economics.",
+    "location": { "type": "Point", "coordinates": [-87.5421, 33.2074] },
+    "address": "263 Stadium Dr, Tuscaloosa, AL 35401",
+    "is_published": true
+  },
+  {
+    "name": "Bounds Law Library",
+    "category": "Library",
+    "short_description": "The law library serving the UA School of Law, offering comprehensive legal collections and research resources.",
+    "long_description": "The William H. Bounds Jr. Law Library is the primary research library for the University of Alabama School of Law. It provides law students and faculty with a comprehensive collection of legal materials including statutes, case reporters, legal journals, treatises, and online legal databases such as Westlaw and LexisNexis. The Bounds Law Library also offers research consultation services and study rooms, making it a central resource for JD students throughout their legal education at UA.",
+    "location": { "type": "Point", "coordinates": [-87.5398, 33.2120] },
+    "address": "101 Paul W. Bryant Dr, Tuscaloosa, AL 35401",
+    "is_published": true
+  },
+  {
+    "name": "McLure Education Library",
+    "category": "Library",
+    "short_description": "Specialized library supporting the College of Education with curriculum materials, education research databases, and children's literature.",
+    "long_description": "The John R. McLure Education Library is the research library for the University of Alabama's College of Education. It houses an extensive curriculum materials center — including textbooks, learning kits, children's and young adult literature, and K-12 instructional resources — alongside academic journal collections in education research, counseling, educational psychology, and physical education. The library is an essential resource for education majors and graduate students preparing for careers in teaching and educational administration.",
+    "location": { "type": "Point", "coordinates": [-87.5380, 33.2097] },
+    "address": "308 Graves Hall, Tuscaloosa, AL 35401",
+    "is_published": true
+  },
+
+  {
+    "name": "Bryant-Denny Stadium",
+    "category": "Athletic Facility",
+    "short_description": "Home of Alabama Crimson Tide football — one of the largest and most iconic stadiums in college football.",
+    "long_description": "Bryant-Denny Stadium is the on-campus football stadium of the University of Alabama Crimson Tide and one of the largest stadiums in the United States, with a capacity of over 101,000. Named after legendary head coach Paul W. 'Bear' Bryant and former university president George H. Denny, the stadium has been the site of countless memorable moments in college football history. It opened in 1929 and has undergone multiple expansions over the decades. On game days, the stadium transforms the surrounding campus into one of the most electric atmospheres in all of sports.",
+    "location": { "type": "Point", "coordinates": [-87.5503, 33.2047] },
+    "address": "920 Paul W. Bryant Dr, Tuscaloosa, AL 35401",
+    "is_published": true
+  },
+  {
+    "name": "Coleman Coliseum",
+    "category": "Athletic Facility",
+    "short_description": "Home arena for Alabama Crimson Tide basketball, gymnastics, and other indoor athletics.",
+    "long_description": "Coleman Coliseum is the primary indoor arena for the University of Alabama, seating approximately 15,383 spectators. Named after Donald Ray Coleman, it is the home court of the Crimson Tide men's and women's basketball teams and hosts Alabama's nationally ranked gymnastics program. Built in 1968 and renovated multiple times since, Coleman Coliseum is a fixture of Alabama athletics and the site of major campus events. It is located on the eastern edge of the main athletic complex.",
+    "location": { "type": "Point", "coordinates": [-87.5397, 33.2029] },
+    "address": "1201 Coliseum Dr, Tuscaloosa, AL 35401",
+    "is_published": true
+  },
+  {
+    "name": "Sewell-Thomas Baseball Stadium",
+    "category": "Athletic Facility",
+    "short_description": "Home of the Alabama Crimson Tide baseball team.",
+    "long_description": "Sewell-Thomas Baseball Stadium is the home venue for the University of Alabama Crimson Tide baseball team, located within the university's athletic complex. The stadium has a seating capacity of approximately 6,000 and is one of the premier college baseball facilities in the SEC. It is named after James Robert Sewell and Thomas, and features a well-maintained natural grass field. Alabama baseball has produced numerous MLB Draft picks and the stadium regularly draws strong attendance for SEC competition.",
+    "location": { "type": "Point", "coordinates": [-87.5488, 33.2100] },
+    "address": "241 Bryant Dr, Tuscaloosa, AL 35401",
+    "is_published": true
+  },
+  {
+    "name": "Rhoads Stadium",
+    "category": "Athletic Facility",
+    "short_description": "Home of the Alabama Crimson Tide softball team, located along Peter Bryce Boulevard.",
+    "long_description": "Rhoads Stadium is the home venue for the University of Alabama Crimson Tide softball team. Named after Wilbur Rhoads, the stadium is located along Peter Bryce Boulevard near the western edge of the main athletic complex. Alabama softball is one of the most successful programs in the SEC, having made multiple appearances in the Women's College World Series. The stadium offers seating for several thousand fans and features a professional-quality playing surface.",
+    "location": { "type": "Point", "coordinates": [-87.5494, 33.2062] },
+    "address": "321 Peter Bryce Blvd, Tuscaloosa, AL 35401",
+    "is_published": true
+  },
+  {
+    "name": "Student Recreation Center",
+    "category": "Athletic Facility",
+    "short_description": "The main campus fitness and recreation facility with gym equipment, courts, a climbing wall, and indoor pools.",
+    "long_description": "The University of Alabama Student Recreation Center (UREC) is the primary fitness and recreation hub for students, faculty, and staff. Located on Peter Bryce Boulevard, the facility features multiple floors of cardio and strength equipment, basketball and racquetball courts, a group fitness studio, an indoor climbing wall, and a full-service aquatic center with indoor pools. The Rec Center is open year-round and is one of the most heavily used facilities on campus, particularly during finals season.",
+    "location": { "type": "Point", "coordinates": [-87.5519, 33.2082] },
+    "address": "400 Peter Bryce Blvd, Tuscaloosa, AL 35401",
+    "is_published": true
+  },
+  {
+    "name": "Mal Moore Athletic Facility",
+    "category": "Athletic Facility",
+    "short_description": "The central hub of Alabama Athletics housing football operations, the Hall of Champions, and athletic administration.",
+    "long_description": "The Mal M. Moore Athletic Facility is named after former UA Athletic Director Mal Moore and serves as the administrative and operational heart of Alabama Athletics. Located along Paul W. Bryant Drive East, the facility houses football operations including coaching offices, a meeting complex, the Strength and Conditioning Complex, an Athletics Dining Facility, equipment rooms, and training rooms. It also contains the Hall of Champions, a public exhibit space showcasing the history and achievements of Alabama's many athletic programs. The facility sits adjacent to Bryant-Denny Stadium.",
+    "location": { "type": "Point", "coordinates": [-87.5502, 33.2072] },
+    "address": "323 Paul W. Bryant Dr E, Tuscaloosa, AL 35401",
+    "is_published": true
+  },
+  {
+    "name": "Foster Auditorium",
+    "category": "Athletic Facility",
+    "short_description": "Historic university gymnasium and site of the famous 'Stand in the Schoolhouse Door' civil rights confrontation in 1963.",
+    "long_description": "Foster Auditorium is a historic building on the University of Alabama campus with profound significance both athletically and in American civil rights history. Built in 1939 as the university's main gymnasium and arena, it served as the home of Crimson Tide basketball for decades and is still used as a practice facility for Alabama gymnastics. However, Foster Auditorium is most famously remembered as the site of the 'Stand in the Schoolhouse Door' on June 11, 1963, when Alabama Governor George Wallace stood in the doorway in a theatrical attempt to block the enrollment of Vivian Malone Jones and James Hood, the first Black students to register at UA. The university ultimately desegregated that day, a pivotal moment in the civil rights movement.",
+    "location": { "type": "Point", "coordinates": [-87.5389, 33.2139] },
+    "address": "801 6th Ave, Tuscaloosa, AL 35401",
+    "is_published": true
+  },
+  {
+    "name": "Sam Bailey Track and Field Stadium",
+    "category": "Athletic Facility",
+    "short_description": "Home of the Alabama Crimson Tide track and field and cross country programs.",
+    "long_description": "Sam Bailey Track and Field Stadium is the home facility for the University of Alabama's track and field and cross country programs. Located within the main athletic complex, the stadium features an all-weather synthetic track, field event areas, and spectator seating. Alabama's track program competes in the highly competitive SEC conference and has produced numerous All-American athletes and Olympic competitors.",
+    "location": { "type": "Point", "coordinates": [-87.5510, 33.2062] },
+    "address": "350 Paul W. Bryant Dr, Tuscaloosa, AL 35401",
+    "is_published": true
+  },
+
+  {
+    "name": "Julia Tutwiler Hall",
+    "category": "Housing",
+    "short_description": "Newly built residence hall (opened 2022) on the east side of campus, replacing the historic original Tutwiler Hall.",
+    "long_description": "The new Julia Tutwiler Hall opened in 2022 as a modern replacement for the beloved original Tutwiler dormitory, which had served UA students for over 50 years. Named after Julia Tutwiler, a pioneering Alabama educator and reformer, the new building is located near the intersection of 10th Avenue and 12th Street on the east edge of campus. It is a fully modern residential facility offering suite-style and apartment-style living for undergraduate students. The building features updated amenities including common lounges, study rooms, laundry facilities, and dining proximity.",
+    "location": { "type": "Point", "coordinates": [-87.5325, 33.2134] },
+    "address": "1100 10th Ave, Tuscaloosa, AL 35401",
+    "is_published": true
+  },
+  {
+    "name": "Riverside Hall",
+    "category": "Housing",
+    "short_description": "Residential hall complex in the southern campus corridor, with multiple buildings for undergraduate housing.",
+    "long_description": "Riverside Hall is a residential complex on the southern part of campus, comprising multiple buildings including Riverside East and Riverside West. Located along Hackberry Lane, the complex offers traditional and suite-style housing for undergraduate students. Riverside is convenient to the core academic campus and is part of the broader south campus residential community that includes access to the Lakeside Dining Hall.",
+    "location": { "type": "Point", "coordinates": [-87.5445, 33.2068] },
+    "address": "178 Hackberry Ln, Tuscaloosa, AL 35401",
+    "is_published": true
+  },
+  {
+    "name": "Paty Hall",
+    "category": "Housing",
+    "short_description": "Classic undergraduate residence hall on the south end of campus.",
+    "long_description": "Paty Hall is one of the traditional undergraduate dormitories located on the south side of the University of Alabama campus. Named after Edwin Richardson Paty Jr., a longtime UA registrar, it provides standard double-occupancy residence hall housing with community bathrooms, lounges, and study spaces. Paty's location near the south side of campus gives residents convenient access to academic buildings and the Ferguson Student Center.",
+    "location": { "type": "Point", "coordinates": [-87.5415, 33.2063] },
+    "address": "400 Paty Dr, Tuscaloosa, AL 35401",
+    "is_published": true
+  },
+  {
+    "name": "Ridgecrest Residence Halls",
+    "category": "Housing",
+    "short_description": "A cluster of three residence halls (East, West, and South) in the west campus residential zone near the athletic complex.",
+    "long_description": "Ridgecrest is a cluster of three residence halls — Ridgecrest East, Ridgecrest West, and Ridgecrest South — located on the west side of campus near Bryant-Denny Stadium and Lakeside Dining Hall. The Ridgecrest complex is one of the most recognized residential areas at UA, primarily housing first-year students. The area features communal lounges, study spaces, and laundry facilities. Its proximity to the stadium means residents experience the full atmosphere of gameday at UA.",
+    "location": { "type": "Point", "coordinates": [-87.5452, 33.2052] },
+    "address": "150 Peter Bryce Blvd, Tuscaloosa, AL 35401",
+    "is_published": true
+  },
+  {
+    "name": "Bryant Hall",
+    "category": "Housing",
+    "short_description": "Residence hall in the west campus area, close to the athletic complex and Lakeside Dining.",
+    "long_description": "Bryant Hall is an undergraduate residence hall located on the west side of campus near the athletic complex and Lakeside Dining Hall. Named in the tradition of honoring UA's storied history, the hall provides traditional double-occupancy rooms with shared common areas. Its location offers convenient access to both dining and the Student Recreation Center, making it a popular choice among students who want to be near the athletic and recreation areas of campus.",
+    "location": { "type": "Point", "coordinates": [-87.5489, 33.2076] },
+    "address": "510 Bryant Dr, Tuscaloosa, AL 35401",
+    "is_published": true
+  },
+  {
+    "name": "Blount Hall",
+    "category": "Housing",
+    "short_description": "Home of the Blount Scholars Program — an honors living-learning community combining residential life with rigorous liberal arts study.",
+    "long_description": "Blount Hall is one of the most distinctive residence halls on the UA campus, serving as the home of the Blount Scholars Program — a selective living-learning community grounded in the liberal arts. Students in the Blount Program take a cohort-based curriculum emphasizing classic texts, humanities, and interdisciplinary inquiry. Blount Hall residents live, study, and attend seminars together, creating a close-knit academic residential community. The building is located on the northwest side of campus.",
+    "location": { "type": "Point", "coordinates": [-87.5478, 33.2108] },
+    "address": "265 Hackberry Ln, Tuscaloosa, AL 35401",
+    "is_published": true
+  },
+  {
+    "name": "Palmer Lake Apartments",
+    "category": "Housing",
+    "short_description": "On-campus apartment-style housing on the southeast edge of campus near Coleman Coliseum.",
+    "long_description": "Palmer Lake is an on-campus apartment complex located on the southeastern edge of the University of Alabama campus, adjacent to Palmer Lake itself and near Coleman Coliseum. It offers apartment-style living with kitchen facilities, making it popular among upperclassmen and graduate students who want the independence of apartment living with the convenience of an on-campus address. The complex sits in a scenic area near the lake, providing a quieter residential option compared to the more densely populated north and west campus dorm corridors.",
+    "location": { "type": "Point", "coordinates": [-87.5387, 33.2020] },
+    "address": "411 Bryce Lawn, Tuscaloosa, AL 35401",
+    "is_published": true
+  },
+
+  {
+    "name": "Denny Chimes",
+    "category": "Point of Interest",
+    "short_description": "The iconic 115-foot campanile tower on the Quad — the most recognizable symbol of the University of Alabama.",
+    "long_description": "Denny Chimes is a 115-foot (35-meter) tall campanile (bell tower) located on the south end of the University of Alabama Quad. Named after president George H. Denny, who led the university from 1912 to 1936, the tower was funded through a student fundraising campaign in the late 1920s. Denny Chimes is the most iconic symbol of UA's campus and appears on countless pieces of university merchandise and imagery. The tower chimes on the quarter-hour and rings a full carillon performance on select occasions. The Walk of Fame, a concrete path around the base of the tower stamped with the handprints and footprints of Alabama football team captains, is embedded in the brick surrounding it.",
+    "location": { "type": "Point", "coordinates": [-87.5409, 33.2079] },
+    "address": "Capstone Dr, Tuscaloosa, AL 35401",
+    "is_published": true
+  },
+  {
+    "name": "Gorgas House Museum",
+    "category": "Point of Interest",
+    "short_description": "One of the only pre-Civil War buildings still standing on campus, now a historic house museum.",
+    "long_description": "The Gorgas House is one of the most historic structures on the University of Alabama campus — and one of only four buildings to survive the burning of campus by Union troops in April 1865. Built around 1829, it originally served as the university's dining hall and later as a faculty residence. Most notably, it was the home of Confederate General Josiah Gorgas, Chief of Ordnance for the Confederacy, and his wife Amelia Gayle Gorgas, after whom the main library is named. Their son, William Crawford Gorgas, went on to become the Surgeon General of the United States and played a pivotal role in eradicating yellow fever during the construction of the Panama Canal. Today the Gorgas House operates as a historic house museum.",
+    "location": { "type": "Point", "coordinates": [-87.5414, 33.2100] },
+    "address": "810 Capstone Dr, Tuscaloosa, AL 35401",
+    "is_published": true
+  },
+  {
+    "name": "The President's Mansion",
+    "category": "Point of Interest",
+    "short_description": "The antebellum Greek Revival home of UA's university presidents — one of the oldest surviving buildings on campus.",
+    "long_description": "The President's Mansion is a stunning Greek Revival antebellum home that has served as the official residence of the President of the University of Alabama since 1841. It is one of the few original campus buildings to survive the destruction of the Civil War, having been spared from the Union Army's burning of campus in 1865. The mansion's distinctive columned facade is an enduring symbol of the university's history and heritage. It is listed on the National Register of Historic Places and remains an active residence. The building is visible from University Boulevard and is a frequent stop on campus tours.",
+    "location": { "type": "Point", "coordinates": [-87.5421, 33.2097] },
+    "address": "University Blvd, Tuscaloosa, AL 35401",
+    "is_published": true
+  },
+  {
+    "name": "Alabama Museum of Natural History (Smith Hall)",
+    "category": "Point of Interest",
+    "short_description": "UA's natural history museum in historic Smith Hall, featuring fossils, minerals, and exhibits on Alabama's natural world.",
+    "long_description": "The Alabama Museum of Natural History, housed in historic Smith Hall, is one of the oldest natural history museums in the Southeast, founded in 1831. Smith Hall itself was built in 1910 and is an impressive Beaux-Arts structure on the northern edge of campus. The museum features remarkable fossil collections — including dinosaur fossils excavated in Alabama — as well as exhibits on the state's geology, mineralogy, and biodiversity. The museum also holds the original University of Alabama Moundville collection, documenting the archaeology of prehistoric Native American civilizations in the state. It is free to visit and open to the public.",
+    "location": { "type": "Point", "coordinates": [-87.5432, 33.2131] },
+    "address": "427 6th Ave, Tuscaloosa, AL 35401",
+    "is_published": true
+  },
+  {
+    "name": "Paul W. Bryant Museum",
+    "category": "Point of Interest",
+    "short_description": "Museum dedicated to over 130 years of Alabama Crimson Tide football history, including Bear Bryant's legendary legacy.",
+    "long_description": "The Paul W. Bryant Museum chronicles over 130 years of University of Alabama football history, with a primary focus on the legendary career of head coach Paul W. 'Bear' Bryant. The museum features memorabilia, trophies, photographs, artwork, videos, and interactive exhibits spanning every era of Alabama football from the 1892 inaugural season to the present. Highlights include exhibits on Bryant's six national championships, Jim Namath's career, and the recent dynasty under Nick Saban. The museum is open to the public and is one of the most visited destinations in Tuscaloosa.",
+    "location": { "type": "Point", "coordinates": [-87.5398, 33.2066] },
+    "address": "300 Paul W. Bryant Dr, Tuscaloosa, AL 35401",
+    "is_published": true
+  },
+  {
+    "name": "Little Round House",
+    "category": "Point of Interest",
+    "short_description": "A small octagonal sentry box on the Quad — one of the oldest surviving structures from UA's original 1828 campus.",
+    "long_description": "The Little Round House is a small octagonal brick structure on the University of Alabama Quad and one of the oldest surviving buildings on campus, dating to the university's founding in 1828. It originally served as a sentry box for campus guards and later as a storage room. Like the Gorgas House, it is one of only a handful of campus structures to survive the Union Army's burning of the university in April 1865. Despite its diminutive size, the Little Round House is one of the most historically significant structures on campus and a beloved reminder of UA's antebellum origins.",
+    "location": { "type": "Point", "coordinates": [-87.5410, 33.2081] },
+    "address": "Capstone Dr, Tuscaloosa, AL 35401",
+    "is_published": true
+  },
+  {
+    "name": "Mallet Assembly Hall",
+    "category": "Point of Interest",
+    "short_description": "Home of the Mallet Assembly, one of UA's oldest and most storied honors living-learning communities.",
+    "long_description": "Mallet Assembly Hall is the residence of the Mallet Assembly, one of the University of Alabama's oldest and most distinctive honors residential communities. Founded in the 1930s, Mallet is known for its tradition of independent intellectual life, eclectic culture, and close-knit community of academically gifted students. Residents engage in self-governance, organize intellectual and cultural programming, and are known for fostering interdisciplinary conversation. Mallet has produced numerous Fulbright scholars, Rhodes Scholars, and graduate program admissions across elite institutions. The building itself is one of the historic dorm structures on campus.",
+    "location": { "type": "Point", "coordinates": [-87.5428, 33.2068] },
+    "address": "371 Stadium Dr, Tuscaloosa, AL 35401",
+    "is_published": true
+  },
+  {
+    "name": "Oliver-Barnard Hall",
+    "category": "Point of Interest",
+    "short_description": "Historic Quad building and one of UA's oldest surviving academic structures, now housing administrative offices.",
+    "long_description": "Oliver-Barnard Hall is one of the oldest buildings on the University of Alabama Quad and one of the original surviving structures from the 19th century campus. Named after two significant figures in UA history — Captain James Lawrence Clark Oliver and John Gorham Barnard — the building's classic red brick and white-columned facade is a defining element of the Quad's historic character. Today it houses administrative and faculty offices. Its position on the Quad makes it one of the most photographed buildings on campus and a key landmark on the historic walking tour.",
+    "location": { "type": "Point", "coordinates": [-87.5413, 33.2085] },
+    "address": "Capstone Dr, Tuscaloosa, AL 35401",
+    "is_published": true
+  },
+
+  {
+    "name": "The University of Alabama Quad",
+    "category": "Generic",
+    "short_description": "The historic heart of UA's campus — a large open lawn framed by the university's oldest and most storied buildings.",
+    "long_description": "The University of Alabama Quad is the geographic and symbolic center of the UA campus. It is a large, open grass lawn framed by some of the most historic and significant buildings on campus: Gorgas Library, Denny Chimes, Tuomey Hall, Oliver-Barnard Hall, Lloyd Hall, Farrah Hall, and the Little Round House. The Quad has been the stage for countless pivotal moments in university history and is a daily gathering place for students relaxing between classes, attending outdoor events, and enjoying campus life. On football Saturdays, the Quad transforms into a sea of crimson and white.",
+    "location": { "type": "Point", "coordinates": [-87.5410, 33.2083] },
+    "address": "Capstone Dr, Tuscaloosa, AL 35401",
+    "is_published": true
+  },
+  {
+    "name": "Rose Administration Building",
+    "category": "Generic",
+    "short_description": "The University of Alabama's central administrative hub, housing the Provost, enrollment services, and key student affairs offices.",
+    "long_description": "The Rose Administration Building serves as the central administrative hub of the University of Alabama. It houses the offices of the Provost, the Office of the University Registrar, enrollment management, financial aid, and other key student services. Named after Frank A. Rose, a former president of the university, the building is typically one of the first stops for students navigating enrollment, academic records, or administrative needs. It is located on University Boulevard near the center of campus.",
+    "location": { "type": "Point", "coordinates": [-87.5419, 33.2105] },
+    "address": "183 University Blvd, Tuscaloosa, AL 35401",
+    "is_published": true
+  }
+]
