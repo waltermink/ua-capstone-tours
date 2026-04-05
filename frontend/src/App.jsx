@@ -13,9 +13,8 @@ function App() {
         loc_addr: '',
         loc_short_desc: '',
         loc_long_desc: '',
-        loc_lat: '',
-        loc_lon: '',
-        loc_media: ''
+        loc_lat: null,
+        loc_lon: null,
     });
 
     if (activeTab === 'list')        return <ListPage activeTab={activeTab} onTabChange={setActiveTab} />;

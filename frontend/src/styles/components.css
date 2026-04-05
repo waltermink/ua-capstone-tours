@@ -581,6 +581,9 @@
 
 /* ══ Contribute View ═════════════════════════════════════════════════════════ */
 
+/* Sticky page header — matches the List Page header style for visual
+   consistency across top-level views. flex-shrink: 0 prevents it from
+   compressing when the scroll area is tall. */
 .cv-header {
   padding: 20px 20px 16px;
   background-color: var(--ua-white);
@@ -588,6 +591,8 @@
   flex-shrink: 0;
 }
 
+/* Page title — Trade Gothic Bold, crimson. Matches lp-title exactly so
+   all top-level view titles look identical. */
 .cv-title {
   margin: 0;
   font-family: var(--font-trade-gothic);
@@ -598,6 +603,8 @@
   line-height: 1.1;
 }
 
+/* General-purpose body paragraph — Minion Pro in secondary gray.
+   Used for descriptive copy that sits outside of a card or form field. */
 .cv-paragraph {
   font-family: var(--font-minion-pro);
   color: var(--ua-pachyderm);
@@ -606,6 +613,9 @@
   text-align: left;
 }
 
+/* Intro / confirmation card — crimson pill with glow shadow.
+   Displayed on step 0 (intro) and step 2 (success). Uses column flexbox
+   so the text and button stack with a consistent gap. */
 .cv-card {
   background-color: var(--ua-crimson);
   border-radius: 20px;
@@ -613,10 +623,11 @@
   padding: 24px;
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 20px;   /* space between card text and the action button */
   width: 100%;
 }
 
+/* Body text inside a cv-card — white so it reads against the crimson background. */
 .cv-card-text {
   font-family: var(--font-minion-pro);
   color: var(--ua-white);
@@ -625,6 +636,9 @@
   text-align: left;
 }
 
+/* CTA button on the intro card — inverted colors (white bg, crimson text)
+   to contrast against the crimson card. Pill shape matches the navbar style.
+   transition enables the smooth scale + dim press animation. */
 .cv-get-started-btn {
   background-color: var(--ua-white);
   color: var(--ua-crimson);
@@ -634,20 +648,69 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 8px;
+  gap: 8px;   /* space between button label and ChevronRight icon */
   cursor: pointer;
   font-family: var(--font-trade-gothic);
   font-weight: 700;
   font-size: 20px;
   width: 100%;   /* spans the full card width */
+  transition: transform 0.1s ease, opacity 0.1s ease;
 }
 
+/* Press feedback — slight scale-down and dim so the tap is clearly acknowledged. */
+.cv-get-started-btn:active {
+  transform: scale(0.96);
+  opacity: 0.85;
+}
+
+/* Scrollable form area (step 1) — grows to fill remaining screen height
+   between the sticky header and the fixed navbar.
+   gap: 20px gives consistent vertical breathing room between every direct
+   child (section headers, field groups, dividers, submit button). 100px
+   bottom padding clears the fixed navbar, same as ldv-scroll-area. */
+.cv-scroll-area {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  padding: 20px 20px 100px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* Section heading above a group of related fields (e.g. "Name & Type").
+   Matches cv-title in weight and family to keep typographic hierarchy
+   consistent, but lives inside the scrollable area. */
+.cv-section-header {
+  margin: 0;
+  font-family: var(--font-trade-gothic);
+  font-size: 28px;
+  font-weight: 800;
+  color: var(--ua-crimson);
+  letter-spacing: 0.02em;
+  line-height: 1.1;
+}
+
+/* Thin horizontal rule between form sections.
+   margin: 0 keeps spacing fully under the scroll-area gap control above. */
+.cv-section-divider {
+  height: 1.5px;
+  background-color: var(--ua-chimes-gray);
+  margin: 0;
+  flex-shrink: 0;
+}
+
+/* Wrapper for a single label + input pair.
+   gap: 8px gives enough breathing room between the label text and its
+   control without pushing them too far apart. */
 .cv-field-group {
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: 8px;
 }
 
+/* Instructional label above each input — Trade Gothic Regular in secondary
+   gray so it's clearly readable but doesn't compete with the crimson headings. */
 .cv-label-text {
   font-family: var(--font-trade-gothic-regular);
   font-size: 18px;
@@ -655,7 +718,11 @@
   align-self: flex-start;
 }
 
-.cv-text-input-small {
+/* Shared style for <input> and <textarea> form controls.
+   resize: none and overflow: hidden prevent the textarea from having a
+   manual resize handle; height is instead adjusted programmatically via JS
+   (see the onChange handler in contributeView.jsx). */
+.cv-text-input {
   width: 100%;
   box-sizing: border-box;
   border: 2px solid var(--ua-chimes-gray);
@@ -665,12 +732,34 @@
   outline: none;
   box-shadow: none;
   font-size: 14px;
+  padding: 10px 14px;
+  resize: none;
+  line-height: 1.6;
+  overflow: hidden;
 }
 
-.cv-text-input-small:focus {
+/* Focused state — thicker crimson border signals the active field clearly. */
+.cv-text-input:focus {
   border: 3px solid var(--ua-crimson);
 }
 
+/* Error state — bright red border + subtle red glow to draw the eye without
+   being overwhelming. Uses a pure danger-red (#dc2626) rather than the UA
+   crimson so the error is visually distinct from the focus state. */
+.cv-text-input--error {
+  border: 2px solid #dc2626;
+  box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.18);
+}
+
+/* Keep the red glow even while the field is focused so the user knows the
+   field still needs attention until they actually type something. */
+.cv-text-input--error:focus {
+  border: 3px solid #dc2626;
+  box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.18);
+}
+
+/* Custom <select> element — appearance: none strips the browser's default
+   arrow so we can render our own ChevronDown icon via cv-dropdown-select-icon. */
 .cv-dropdown-select {
   appearance: none;
   background-color: var(--ua-white);
@@ -682,4 +771,85 @@
   border: 2px solid var(--ua-chimes-gray);
   border-radius: 8px;
   font-size: 14px;
+  padding: 10px 14px;
+}
+
+/* Error state for the dropdown — same visual treatment as cv-text-input--error. */
+.cv-dropdown-select--error {
+  border: 2px solid #dc2626;
+  box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.18);
+}
+
+/* Constrained-height container for the MapPicker component.
+   overflow: hidden clips the Leaflet map to the rounded corners.
+   Spacing above and below is fully handled by cv-field-group's gap
+   and cv-scroll-area's gap — no extra margin is needed here. */
+.cv-map-picker-container {
+  height: 300px;
+  border-radius: 8px;
+  overflow: hidden;
+  border: 2px solid var(--ua-chimes-gray);
+}
+
+/* Error state for the map picker — same red border + glow as cv-text-input--error.
+   box-shadow is painted outside the border box so it is not clipped by
+   the overflow: hidden that constrains the map tiles inside. */
+.cv-map-picker-container--error {
+  border: 2px solid #dc2626;
+  box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.18);
+}
+
+/* Relative-positioned wrapper so the absolute ChevronDown icon can be
+   anchored to the right edge of the select box. */
+.cv-dropdown-select-wrapper {
+  position: relative;
+  width: 100%;
+}
+
+/* Decorative chevron icon overlaid on the select — pointer-events: none
+   ensures clicks pass through to the <select> element underneath. */
+.cv-dropdown-select-icon {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none;
+  color: var(--ua-pachyderm);
+}
+
+/* Inline validation banner shown above the form when any required field
+   is empty on submit. Crimson text matches the field highlight color. */
+.cv-error-message {
+  margin: 0;
+  font-family: var(--font-minion-pro);
+  color: var(--ua-crimson);
+  font-size: 14px;
+  text-align: left;
+}
+
+/* Primary submit button — crimson pill, mirrors the navbar active state.
+   Sits at the bottom of the cv-scroll-area; spacing above it is provided
+   by the scroll-area's gap. transition enables the smooth press animation. */
+.cv-submit-btn {
+  background-color: var(--ua-crimson);
+  color: var(--ua-white);
+  border: none;
+  border-radius: 9999px;
+  padding: 12px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;   /* space between button label and ChevronRight icon */
+  cursor: pointer;
+  font-family: var(--font-trade-gothic);
+  font-weight: 700;
+  font-size: 20px;
+  transition: transform 0.1s ease, opacity 0.1s ease;
+}
+
+/* Press feedback — same scale-down as cv-get-started-btn for consistency.
+   Opacity drop makes the crimson visually "depress" without a color change. */
+.cv-submit-btn:active {
+  transform: scale(0.96);
+  opacity: 0.8;
 }
