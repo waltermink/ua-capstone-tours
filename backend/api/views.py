@@ -7,7 +7,7 @@ from rest_framework.response import Response # type: ignore
 from rest_framework import generics # type: ignore
 from rest_framework.exceptions import ValidationError # type: ignore
 from locations_db.models import Landmark, LandmarkPhoto
-from .serializers import LandmarkListSerializer, LandmarkDetailSerializer, LandmarkNearbySerializer, LandmarkFullListSerializer
+from .serializers import LandmarkListSerializer, LandmarkDetailSerializer, LandmarkNearbySerializer, LandmarkFullListSerializer, LandmarkMediaSerializer
 
 @api_view(["GET"])
 # Simple health check endpoint to verify that the API is running
@@ -85,6 +85,17 @@ class LandmarkNearbyView(generics.ListAPIView):
             .order_by("distance")
         )
     
+    def get_serializer_context(self):
+        context = super().get_serializer_context()
+        context['request'] = self.request
+        return context
+
+class LandmarkMediaListView(generics.ListAPIView):
+    serializer_class = LandmarkMediaSerializer
+
+    def get_queryset(self):
+        return Landmark.objects.filter(is_published=True).order_by("name")
+
     def get_serializer_context(self):
         context = super().get_serializer_context()
         context['request'] = self.request
