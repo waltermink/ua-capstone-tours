@@ -57,7 +57,9 @@ function ListPage({ activeTab, onTabChange }) {
                 />
             )}
 
-            <Navbar activeTab={activeTab} onTabChange={onTabChange} />
+            <div style={{ position: 'fixed', bottom: 0, left: 0, right: 0, zIndex: 820 }}>
+                <Navbar activeTab={activeTab} onTabChange={onTabChange} />
+            </div>
         </div>
     );
 }

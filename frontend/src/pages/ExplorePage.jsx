@@ -112,7 +112,7 @@ function ExplorePage({ activeTab, onTabChange }) {
     return (
         // The map fills the full viewport. The navbar floats over it via
         // position:fixed, and all other overlays are also position:fixed.
-        <div style={{ height: '100svh' }}>
+        <div style={{ height: '100dvh' }}>
             <MapComponent
                 onPinClick={handlePinClick}
                 onProximityEnter={handleProximityEnter}
