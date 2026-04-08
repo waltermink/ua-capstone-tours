@@ -4,6 +4,21 @@ import L from "leaflet";
 import "leaflet/dist/leaflet.css";
 import "leaflet-providers";
 
+// Pure helper — generates the SVG path for an orientation cone pointing straight
+// up (north) by default, centred at (35, 35) inside a 70×70 SVG viewport.
+// halfAngleDeg is the half-width of the cone opening:
+//   ~15° = narrow / confident heading, ~60° = wide / uncertain heading.
+function getConePath(halfAngleDeg) {
+    const cx = 35, cy = 35, r = 30;
+    const rad = (halfAngleDeg * Math.PI) / 180;
+    const x1 = (cx - r * Math.sin(rad)).toFixed(2);
+    const y1 = (cy - r * Math.cos(rad)).toFixed(2);
+    const x2 = (cx + r * Math.sin(rad)).toFixed(2);
+    // y2 === y1 — cone is symmetric about the vertical axis
+    const largeArc = halfAngleDeg >= 90 ? 1 : 0;
+    return `M${cx},${cy} L${x1},${y1} A${r},${r},0,${largeArc},1,${x2},${y1} Z`;
+}
+
 export default function MapComponent({ onPinClick, onProximityEnter, onMapClick, onPinMove, activePinId }) {
     const mapContainerRef = useRef(null); // ref for the DOM div element
     const mapRef = useRef(null);          // ref for the Leaflet map instance
@@ -22,6 +37,7 @@ export default function MapComponent({ onPinClick, onProximityEnter, onMapClick,
     const activePinIdRef = useRef(activePinId);
     const isFollowingRef = useRef(true);
     const lastPositionRef = useRef(null); // { lat, lng } of most recent GPS fix
+    const userMarkerRef   = useRef(null); // Leaflet marker for the blue dot — set in startTracking, read by the orientation handler
 
     useEffect(() => {
         callbacksRef.current   = { onPinClick, onProximityEnter, onMapClick, onPinMove };
@@ -60,33 +76,49 @@ export default function MapComponent({ onPinClick, onProximityEnter, onMapClick,
             lastPositionRef.current = { lat, lng };
 
             if (!userMarker) {
-                // First time we have a position — create the blue dot marker
+                // Location dot + orientation cone combined into one 70×70 SVG divIcon
+                // so both are always pixel-perfectly centred on the same anchor point.
+                // Using an SVG circle for the dot (instead of a bordered HTML div) avoids
+                // the content-box sizing mismatch that caused the previous centering offset.
                 const userIcon = L.divIcon({
                     className: '',
-                    html: `<div style="
-                        width: 16px;
-                        height: 16px;
-                        background: #3b82f6;
-                        border: 3px solid white;
-                        border-radius: 50%;
-                        box-shadow: 0 0 0 4px rgba(59,130,246,0.3);
-                    "></div>`,
-                    iconSize: [16, 16],
-                    iconAnchor: [8, 8]  // centers the dot on the exact coordinate
+                    html: `<svg width="70" height="70" viewBox="0 0 70 70"
+                                style="display:block;overflow:visible;">
+                        <!-- Orientation cone: points up (north) by default.
+                             Rotated by CSS transform in the deviceorientation handler.
+                             transform-origin is the SVG centre (35,35) so it always
+                             pivots around the dot, not the SVG corner. -->
+                        <path class="loc-cone"
+                            d="${getConePath(45)}"
+                            fill="rgba(59,130,246,0.28)"
+                            stroke="none"
+                            style="transform-origin:35px 35px;"
+                        />
+                        <!-- Main location dot -->
+                        <circle cx="35" cy="35" r="10"
+                            fill="#3b82f6" stroke="white" stroke-width="4" />
+                    </svg>`,
+                    iconSize: [70, 70],
+                    iconAnchor: [35, 35],   // exact centre of the SVG = centre of the dot
                 });
                 userMarker = L.marker([lat, lng], { icon: userIcon, zIndexOffset: 1000 })
                     .addTo(map)
                     .bindTooltip('You are here');
+                // Expose the marker so the deviceorientation handler can query the cone element
+                userMarkerRef.current = userMarker;
 
-                // Proximity radius circle — shows the 200 ft detection range
+                // Accuracy ring — dashed outline, no fill, so it reads as a boundary
+                // rather than a solid overlay. dashArray + lineCap:'round' give
+                // rounded-cap dashes matching the design intent.
                 proximityCircle = L.circle([lat, lng], {
                     radius: PROXIMITY_RADIUS,
                     color: '#3b82f6',
-                    fillColor: '#3b82f6',
-                    fillOpacity: 0.08,
-                    weight: 1.5,
-                    opacity: 0.35,
-                    interactive: false,  // pass clicks through to markers beneath
+                    fill: false,
+                    weight: 2,
+                    opacity: 0.6,
+                    dashArray: '4 7',
+                    lineCap: 'round',
+                    interactive: false,
                 }).addTo(map);
 
                 // On first GPS fix, fly to the user's actual location at walking-tour zoom
@@ -191,7 +223,50 @@ export default function MapComponent({ onPinClick, onProximityEnter, onMapClick,
         //    without waiting for the landmark fetch.
         const watchId = startTracking(map, landmarks);
 
-        // 8. Load landmarks from Django API and push into the shared array.
+        // 8. Device orientation — drives the heading cone on the user location dot.
+        //    coneEl is queried lazily (marker doesn't exist until first GPS fix).
+        //    lastHalfAngle throttles path redraws to when accuracy changes by >3°.
+        let coneEl = null;
+        let lastHalfAngle = 45;
+
+        function handleOrientation(event) {
+            // Lazily resolve the cone element once the marker is in the DOM
+            if (!coneEl) {
+                coneEl = userMarkerRef.current?.getElement()?.querySelector('.loc-cone') ?? null;
+            }
+            if (!coneEl) return;
+
+            let heading = null;
+            let halfAngle = 45; // fallback: wide cone = uncertain direction
+
+            if (event.webkitCompassHeading != null) {
+                // iOS — degrees clockwise from true north, 0–360
+                heading = event.webkitCompassHeading;
+                // webkitCompassAccuracy: ±° margin; clamp to a useful display range
+                const acc = event.webkitCompassAccuracy ?? 45;
+                halfAngle = Math.max(15, Math.min(acc, 60));
+            } else if (event.alpha != null) {
+                // Android/web — alpha is CCW rotation from north; invert to CW
+                heading = (360 - event.alpha) % 360;
+                halfAngle = 30; // no standard accuracy value — use a moderate cone
+            }
+
+            if (heading == null) return;
+
+            // Rotate the cone to match the compass heading
+            coneEl.style.transform = `rotate(${heading.toFixed(1)}deg)`;
+
+            // Rebuild the cone path only when accuracy shifts meaningfully
+            if (Math.abs(halfAngle - lastHalfAngle) > 3) {
+                lastHalfAngle = halfAngle;
+                coneEl.setAttribute('d', getConePath(halfAngle));
+            }
+        }
+
+        // useCapture: true ensures we get the event before any child handlers
+        window.addEventListener('deviceorientation', handleOrientation, true);
+
+        // 9. Load landmarks from Django API and push into the shared array.
         fetch('https://ua-capstone-backend-845958693022.us-central1.run.app/api/landmarks/')
             .then(r => { if (!r.ok) throw new Error(r.status); return r.json(); })
             .then(data => {
@@ -232,9 +307,10 @@ export default function MapComponent({ onPinClick, onProximityEnter, onMapClick,
             })
             .catch(error => console.error("Error loading landmarks:", error));
 
-        // 9. Cleanup: stop watching position and destroy the map on unmount so
-        //    the component can be safely remounted (e.g. switching tabs).
+        // 10. Cleanup: stop watching position, remove orientation listener, and
+        //     destroy the map on unmount so the component can be safely remounted.
         return () => {
+            window.removeEventListener('deviceorientation', handleOrientation, true);
             if (watchId != null) navigator.geolocation.clearWatch(watchId);
             map.remove();
             mapRef.current = null;

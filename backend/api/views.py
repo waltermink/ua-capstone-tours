@@ -1,4 +1,3 @@
-from django.shortcuts import render
 from django.contrib.gis.db.models.functions import Distance as DistanceFunc
 from django.contrib.gis.geos import Point
 from django.contrib.gis.measure import Distance as DistanceMeasure
@@ -6,8 +5,8 @@ from rest_framework.decorators import api_view # type: ignore
 from rest_framework.response import Response # type: ignore
 from rest_framework import generics # type: ignore
 from rest_framework.exceptions import ValidationError # type: ignore
-from locations_db.models import Landmark, LandmarkPhoto
-from .serializers import LandmarkListSerializer, LandmarkDetailSerializer, LandmarkNearbySerializer, LandmarkFullListSerializer
+from locations_db.models import Landmark
+from .serializers import LandmarkCreateSerializer, LandmarkListSerializer, LandmarkDetailSerializer, LandmarkNearbySerializer, LandmarkFullListSerializer
 
 @api_view(["GET"])
 # Simple health check endpoint to verify that the API is running
@@ -37,7 +36,8 @@ class LandmarkDetailView(generics.RetrieveAPIView):
         context = super().get_serializer_context()
         context['request'] = self.request
         return context
-    
+
+# List view for landmarks with full details, including long description and photos, for all published landmarks 
 class LandmarkFullListView(generics.ListAPIView):
     serializer_class = LandmarkFullListSerializer
 
@@ -89,3 +89,13 @@ class LandmarkNearbyView(generics.ListAPIView):
         context = super().get_serializer_context()
         context['request'] = self.request
         return context
+
+class LandmarkCreateView(generics.CreateAPIView):
+    serializer_class = LandmarkCreateSerializer
+
+    def get_serializer_context(self):
+        context = super().get_serializer_context()
+        context['request'] = self.request
+        return context
+    
+    

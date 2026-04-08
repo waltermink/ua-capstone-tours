@@ -12,7 +12,7 @@ class LandmarkAdminForm(forms.ModelForm):
     # Controls which fields are shown in the admin form from the Landmark model, we exclude the location field since we handle it with latitude and longitude
     class Meta:
         model = Landmark
-        fields = ["name", "short_description", "long_description", "address", "is_published"]
+        fields = ["name", "short_description", "long_description", "address", "category", "is_published"]
 
     # When editing an existing landmark, we want to populate the latitude and longitude fields with the current location values
     def __init__(self, *args, **kwargs):
