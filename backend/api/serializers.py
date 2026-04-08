@@ -18,6 +18,35 @@ class LandmarkPhotoSerializer(serializers.ModelSerializer):
         request = self.context.get("request")
         url = obj.image.url
         return request.build_absolute_uri(url) if request else url
+    
+class LandmarkAudioSerializer(serializers.ModelSerializer):
+    url = serializers.SerializerMethodField()
+
+    class Meta:
+        model = LandmarkAudio
+        fields = ["id", "url", "caption", "sort_order"]
+
+    def get_url(self, obj):
+        if not obj.audio:
+            return None
+        request = self.context.get("request")
+        url = obj.audio.url
+        return request.build_absolute_uri(url) if request else url
+
+
+class LandmarkVideoSerializer(serializers.ModelSerializer):
+    url = serializers.SerializerMethodField()
+
+    class Meta:
+        model = LandmarkVideo
+        fields = ["id", "url", "caption", "sort_order"]
+
+    def get_url(self, obj):
+        if not obj.video:
+            return None
+        request = self.context.get("request")
+        url = obj.video.url
+        return request.build_absolute_uri(url) if request else url
 
 # Serializes a list of landmarks with basic info for the list view
 class LandmarkListSerializer(serializers.ModelSerializer):
