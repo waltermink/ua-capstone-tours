@@ -114,6 +114,9 @@ class LandmarkNearbySerializer(serializers.ModelSerializer):
 
 # Serializer for creating a new landmark, accepts lat/lon as separate fields and converts to Point, defaults to unpublished
 class LandmarkCreateSerializer(serializers.ModelSerializer):
+    lat = serializers.FloatField(write_only=True)
+    lon = serializers.FloatField(write_only=True)
+
     class Meta:
         model = Landmark
         fields = ["name", "short_description", "long_description", "category", "lat", "lon", "address"]

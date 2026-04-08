@@ -267,22 +267,87 @@ export default function MapComponent({ onPinClick, onProximityEnter, onMapClick,
         window.addEventListener('deviceorientation', handleOrientation, true);
 
         // 9. Load landmarks from Django API and push into the shared array.
+
+        // Returns a Leaflet divIcon for the given category.
+        // Generic uses the existing crimson teardrop; all others use a colored circle
+        // with a Lucide icon (24x24 viewBox) scaled into a 16x16 area via nested SVG.
+        function getCategoryIcon(category) {
+            if (!category || category === 'generic') {
+                return L.divIcon({
+                    className: '',
+                    html: `<svg width="24" height="32" viewBox="0 0 24 32" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12 0C5.373 0 0 5.373 0 12c0 9 12 20 12 20S24 21 24 12C24 5.373 18.627 0 12 0z" fill="#9E1B32"/>
+                        <circle cx="12" cy="12" r="4" fill="white"/>
+                    </svg>`,
+                    iconSize: [24, 32],
+                    iconAnchor: [12, 32],
+                });
+            }
+
+            // Lucide SVG paths (24×24 viewBox). Rendered via nested <svg x="6" y="6" width="16" height="16">
+            // so the icon fits inside the 28×28 circle with comfortable padding.
+            const configs = {
+                dining: {
+                    color: '#D35400',
+                    // Lucide: Utensils
+                    paths: `<path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2"/><path d="M7 2v20"/><path d="M21 15V2a5 5 0 0 0-5 5v6c0 1.1.9 2 2 2h3Zm0 0v7"/>`,
+                    fill: 'none',
+                },
+                academic: {
+                    color: '#2980B9',
+                    // Lucide: GraduationCap
+                    paths: `<path d="M21.42 10.922a1 1 0 0 0-.019-1.838L12.83 5.18a2 2 0 0 0-1.66 0L2.6 9.08a1 1 0 0 0 0 1.832l8.57 3.908a2 2 0 0 0 1.66 0z"/><path d="M22 10v6"/><path d="M6 12.5V16a6 3 0 0 0 12 0v-3.5"/>`,
+                    fill: 'none',
+                },
+                library: {
+                    color: '#1E8449',
+                    // Lucide: BookOpen
+                    paths: `<path d="M12 7v14"/><path d="M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z"/>`,
+                    fill: 'none',
+                },
+                athletics: {
+                    color: '#7D3C98',
+                    // Lucide: Trophy
+                    paths: `<path d="M10 14.66v1.626a2 2 0 0 1-.976 1.696A5 5 0 0 0 7 21.978"/><path d="M14 14.66v1.626a2 2 0 0 0 .976 1.696A5 5 0 0 1 17 21.978"/><path d="M18 9h1.5a1 1 0 0 0 0-5H18"/><path d="M4 22h16"/><path d="M6 9a6 6 0 0 0 12 0V3a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1z"/><path d="M6 9H4.5a1 1 0 0 1 0-5H6"/>`,
+                    fill: 'none',
+                },
+                housing: {
+                    color: '#117A8B',
+                    // Lucide: House
+                    paths: `<path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8"/><path d="M3 10a2 2 0 0 1 .709-1.528l7-6a2 2 0 0 1 2.582 0l7 6A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>`,
+                    fill: 'none',
+                },
+                poi: {
+                    color: '#B7950B',
+                    // Lucide: Star (filled)
+                    paths: `<path d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z"/>`,
+                    fill: 'white',
+                },
+            };
+
+            const cfg = configs[category] ?? configs.poi;
+
+            return L.divIcon({
+                className: '',
+                html: `<svg width="28" height="28" viewBox="0 0 28 28" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="14" cy="14" r="13" fill="${cfg.color}" stroke="white" stroke-width="1.5"/>
+                    <svg x="6" y="6" width="16" height="16" viewBox="0 0 24 24" fill="${cfg.fill}" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                        ${cfg.paths}
+                    </svg>
+                </svg>`,
+                iconSize: [28, 28],
+                iconAnchor: [14, 14],
+            });
+        }
+
         fetch('https://ua-capstone-backend-845958693022.us-central1.run.app/api/landmarks/')
             .then(r => { if (!r.ok) throw new Error(r.status); return r.json(); })
             .then(data => {
 
                 data.forEach(point => {
 
-                    // Create crimson pin marker and attach click handler
-                    const pinIcon = L.divIcon({
-                        className: '',
-                        html: `<svg width="24" height="32" viewBox="0 0 24 32" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M12 0C5.373 0 0 5.373 0 12c0 9 12 20 12 20S24 21 24 12C24 5.373 18.627 0 12 0z" fill="#772432"/>
-                            <circle cx="12" cy="12" r="4" fill="white"/>
-                        </svg>`,
-                        iconSize: [24, 32],
-                        iconAnchor: [12, 32],
-                    });
+                    // Create category-specific pin marker and attach click handler
+                    const pinIcon = getCategoryIcon(point.category);
                     point._marker = L.marker([point.lat, point.lon], { icon: pinIcon }).addTo(map);  // API returns "lon" not "lng"
 
                     point._marker.on('click', function(e) {
