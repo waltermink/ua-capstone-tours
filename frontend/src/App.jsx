@@ -5,7 +5,7 @@ import ToursPage from './pages/ToursPage.jsx';
 import ContributePage from './pages/ContributePage.jsx';
 
 function App() {
-    const [activeTab, setActiveTab] = useState('contribute');
+    const [activeTab, setActiveTab] = useState('explore');
     const [contributeStep, setContributeStep] = useState(0);
     const [contributeData, setContributeData] = useState({
         loc_name: '',

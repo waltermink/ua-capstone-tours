@@ -1,5 +1,6 @@
 from rest_framework import serializers # type: ignore
 from locations_db.models import Landmark, LandmarkPhoto, LandmarkAudio, LandmarkVideo
+from django.contrib.gis.geos import Point
 
 # Serializes photos related to a landmark, including the URL and metadata for each photo
 class LandmarkPhotoSerializer(serializers.ModelSerializer):
@@ -54,7 +55,7 @@ class LandmarkListSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Landmark
-        fields = ["id", "name", "short_description", "lat", "lon"]
+        fields = ["id", "name", "short_description", "category", "lat", "lon"]
 
     def get_lat(self, obj):
         return obj.location.y if obj.location else None
@@ -69,7 +70,7 @@ class LandmarkFullListSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Landmark
-        fields = ["id", "name", "short_description", "long_description", "lat", "lon", "address", "photos"]
+        fields = ["id", "name", "short_description", "long_description", "category", "lat", "lon", "address", "photos"]
 
     def get_lat(self, obj):
         return obj.location.y if obj.location else None
@@ -99,14 +100,14 @@ class LandmarkDetailSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Landmark
-        fields = ["id", "name", "short_description", "long_description", "lat", "lon", "address", "photos"]
+        fields = ["id", "name", "short_description", "long_description", "category", "lat", "lon", "address", "photos"]
 
     def get_lat(self, obj):
         return obj.location.y if obj.location else None
-    
+
     def get_lon(self, obj):
         return obj.location.x if obj.location else None
-    
+
 # Serializes nearby landmarks with distance info for the nearby landmarks endpoint
 class LandmarkNearbySerializer(serializers.ModelSerializer):
     lat = serializers.SerializerMethodField()
@@ -116,7 +117,7 @@ class LandmarkNearbySerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Landmark
-        fields = ["id", "name", "short_description", "lat", "lon", "distance_m", "cover_photo_url"]
+        fields = ["id", "name", "short_description", "category", "lat", "lon", "distance_m", "cover_photo_url"]
 
     def get_lat(self, obj):
         return obj.location.y if obj.location else None
@@ -139,6 +140,26 @@ class LandmarkNearbySerializer(serializers.ModelSerializer):
         request = self.context.get("request")
         url = first_photo.image.url
         return request.build_absolute_uri(url) if request else url
+
+# Serializer for creating a new landmark, accepts lat/lon as separate fields and converts to Point, defaults to unpublished
+class LandmarkCreateSerializer(serializers.ModelSerializer):
+    lat = serializers.FloatField(write_only=True)
+    lon = serializers.FloatField(write_only=True)
+
+    class Meta:
+        model = Landmark
+        fields = ["name", "short_description", "long_description", "category", "lat", "lon", "address"]
+
+    def create(self, validated_data):
+        lat = validated_data.pop("lat")
+        lon = validated_data.pop("lon")
+        location = Point(lon, lat, srid=4326)  # IMPORTANT: Point(x=lon, y=lat)
+        landmark = Landmark.objects.create(
+            location=location,
+            is_published=False, # New landmarks are unpublished by default 
+            **validated_data
+        )
+        return landmark
 
 class LandmarkMediaSerializer(serializers.ModelSerializer):
     lat = serializers.SerializerMethodField()

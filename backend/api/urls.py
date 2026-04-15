@@ -1,9 +1,10 @@
 from django.urls import path
-from .views import health, LandmarkListView, LandmarkDetailView, LandmarkNearbyView, LandmarkFullListView, LandmarkMediaListView
+from .views import health, LandmarkListView, LandmarkDetailView, LandmarkNearbyView, LandmarkFullListView, LandmarkCreateView, LandmarkMediaListView
 
 urlpatterns = [
     path("health/", health, name="api-health"),
     path("landmarks/", LandmarkListView.as_view(), name="landmark-list"),
+    path("landmarks/create/", LandmarkCreateView.as_view(), name="landmark-create"),
     path("landmarks/full/", LandmarkFullListView.as_view(), name="landmark-full-list"),
     path("landmarks/media/", LandmarkMediaListView.as_view(), name="landmark-media-list"),
     path("landmarks/<int:pk>/", LandmarkDetailView.as_view(), name="landmark-detail"),

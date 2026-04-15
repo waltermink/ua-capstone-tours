@@ -2,6 +2,8 @@ import {useState, useEffect, useRef} from "react";
 import {ChevronRight, ChevronDown, RotateCcw} from 'lucide-react';
 import MapPicker from "./mapPicker";
 
+const API_BASE = 'https://ua-capstone-backend-845958693022.us-central1.run.app/api';
+
 // ContributeView — multi-step form that lets users suggest new landmarks.
 //   step 0: intro card explaining the process
 //   step 1: the actual data-entry form
@@ -49,6 +51,9 @@ function ContributeView({step, onStepChange, contributeData, setContributeData})
         loc_addr: false,
     });
 
+    const [isSubmitting, setIsSubmitting] = useState(false);
+    const [submitError, setSubmitError] = useState(null);
+
     // Checks all required fields before allowing the form to advance.
     // Sets the errors state so invalid fields are highlighted, and returns
     // false if any field is empty so the caller can bail out early.
@@ -65,6 +70,57 @@ function ContributeView({step, onStepChange, contributeData, setContributeData})
         const hasErrors = Object.values(newErrors).some(v => v === true);
 
         return !hasErrors;
+    }
+
+    async function handleSubmit() {
+        if (!validateAndSubmit()) return;
+
+        setIsSubmitting(true);
+        setSubmitError(null);
+        try {
+            const res = await fetch(`${API_BASE}/landmarks/create/`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    name:              contributeData.loc_name,
+                    short_description: contributeData.loc_short_desc,
+                    long_description:  contributeData.loc_long_desc,
+                    category:          contributeData.loc_type,
+                    lat:               contributeData.loc_lat,
+                    lon:               contributeData.loc_lng,
+                    address:           contributeData.loc_addr,
+                }),
+            });
+
+            if (!res.ok) {
+                const body = await res.json().catch(() => ({}));
+                throw new Error(body.detail || `Server error ${res.status}`);
+            }
+
+            setContributeData({
+                loc_name: '',
+                loc_type: '',
+                loc_addr: '',
+                loc_short_desc: '',
+                loc_long_desc: '',
+                loc_lat: null,
+                loc_lng: null,
+            });
+            setErrors({
+                loc_name: false,
+                loc_type: false,
+                loc_short_desc: false,
+                loc_long_desc: false,
+                loc_lat: false,
+                loc_addr: false,
+            });
+            onStepChange(2);
+        } catch (err) {
+            console.error('Landmark submission failed:', err);
+            setSubmitError(err.message || 'Submission failed. Please try again.');
+        } finally {
+            setIsSubmitting(false);
+        }
     }
 
     // Returns the JSX for the current step. Uses displayedStep (not the prop
@@ -234,35 +290,12 @@ function ContributeView({step, onStepChange, contributeData, setContributeData})
                             </p>
                         )}
 
-                        {/* Submit — validateAndSubmit() checks all fields first;
-                            if valid, advance to the confirmation step.
-                            TODO: POST contributeData to the backend before calling onStepChange(2).
-                            For now, it checks that the submission is valid, then resets the form and error checks */}
-                        <button className="cv-submit-btn" onClick={() => {
-                            if (validateAndSubmit()) {
-                                setContributeData({
-                                    loc_name: '',
-                                    loc_type: '',
-                                    loc_addr: '',
-                                    loc_short_desc: '',
-                                    loc_long_desc: '',
-                                    loc_lat: null,
-                                    loc_lon: null,
-                                });
+                        {submitError && (
+                            <p className="cv-error-message">{submitError}</p>
+                        )}
 
-                                setErrors({
-                                    loc_name: false,
-                                    loc_type: false,
-                                    loc_short_desc: false,
-                                    loc_long_desc: false,
-                                    loc_lat: false,
-                                    loc_addr: false,
-                                });
-                                
-                                onStepChange(2);
-                            }
-                        }}>
-                            Submit <ChevronRight size={16}/>
+                        <button className="cv-submit-btn" onClick={handleSubmit} disabled={isSubmitting}>
+                            {isSubmitting ? 'Submitting…' : <> Submit <ChevronRight size={16}/> </>}
                         </button>
                     </div>
                 )

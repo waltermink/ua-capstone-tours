@@ -1,5 +1,15 @@
 from django.contrib.gis.db import models
 
+CATEGORY_CHOICES = [
+    ("dining", "Dining"),
+    ("academic", "Academic Building"),
+    ("library", "Library"),
+    ("athletics", "Athletic Facility"),
+    ("housing", "Housing"),
+    ("poi", "Point of Interest"),
+    ("generic", "Other"),
+]
+
 # Defines the Landmark model with fields for name, descriptions, location, address, publication status, and timestamps.
 class Landmark(models.Model):
     name = models.CharField(max_length=200)
@@ -21,6 +31,13 @@ class Landmark(models.Model):
     address = models.CharField(
         max_length=255,
         blank=True
+    )
+
+    category = models.CharField(
+        max_length=20,
+        choices=CATEGORY_CHOICES,
+        default="generic",
+        help_text="Type of landmark"
     )
 
     is_published = models.BooleanField(
