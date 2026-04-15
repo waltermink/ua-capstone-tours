@@ -1,5 +1,15 @@
 from django.contrib.gis.db import models
 
+CATEGORY_CHOICES = [
+    ("dining", "Dining"),
+    ("academic", "Academic Building"),
+    ("library", "Library"),
+    ("athletics", "Athletic Facility"),
+    ("housing", "Housing"),
+    ("poi", "Point of Interest"),
+    ("generic", "Other"),
+]
+
 # Defines the Landmark model with fields for name, descriptions, location, address, publication status, and timestamps.
 class Landmark(models.Model):
     name = models.CharField(max_length=200)
@@ -21,6 +31,13 @@ class Landmark(models.Model):
     address = models.CharField(
         max_length=255,
         blank=True
+    )
+
+    category = models.CharField(
+        max_length=20,
+        choices=CATEGORY_CHOICES,
+        default="generic",
+        help_text="Type of landmark"
     )
 
     is_published = models.BooleanField(
@@ -58,3 +75,42 @@ class LandmarkPhoto(models.Model):
 
     def __str__(self):
         return f"Photo for {self.landmark.name}"
+    
+class LandmarkAudio(models.Model):
+    landmark = models.ForeignKey(
+        Landmark,
+        related_name='audio_files',
+        on_delete=models.CASCADE
+    )
+
+    audio = models.FileField(upload_to='landmark_audio/%Y/%m/')
+    caption = models.CharField(max_length=255, blank=True)
+    sort_order = models.PositiveIntegerField(default=0)
+
+    uploaded_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering = ['sort_order', 'uploaded_at']
+
+    def __str__(self):
+        return f"Audio for {self.landmark.name}"
+
+
+class LandmarkVideo(models.Model):
+    landmark = models.ForeignKey(
+        Landmark,
+        related_name='video_files',
+        on_delete=models.CASCADE
+    )
+
+    video = models.FileField(upload_to='landmark_videos/%Y/%m/')
+    caption = models.CharField(max_length=255, blank=True)
+    sort_order = models.PositiveIntegerField(default=0)
+
+    uploaded_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering = ['sort_order', 'uploaded_at']
+
+    def __str__(self):
+        return f"Video for {self.landmark.name}"
