@@ -1,73 +1,43 @@
 # UA Capstone Tours
 
-A CS 495 Capstone project to build a **mobile-friendly digital walking tour** of the University of Alabama campus.
-The application provides an interactive map where users can explore campus buildings and landmarks via geotagged locations, descriptive text, and (eventually) media such as photos and audio.
+A CS 495 Capstone project to build a **mobile-first interactive walking tour** of the University of Alabama campus. Users explore geotagged campus landmarks on a live map, see their real-time GPS location, and receive proximity alerts that automatically surface information when they walk near a point of interest.
 
-The project uses **Django + PostGIS** on the backend.
+You can read the full documentation for this project at [capstone-tours.readthedocs.io](https://capstone-tours.readthedocs.io/en/latest/).
 
-You can **(and should)** read the full documentation for this project, which you can [read here](https://capstone-tours.readthedocs.io/en/latest/).
+---
+
+## Tech Stack
+
+| Layer | Technology |
+| --- | --- |
+| Frontend | React 19 + Vite, Leaflet via react-leaflet, Lucide icons |
+| Backend | Django 5 + Django REST Framework, GeoDjango |
+| Spatial queries | PostGIS (PostgreSQL geographic extension) |
+| Database | PostgreSQL 16 + PostGIS 3.4 (Docker) |
+| Media storage | Google Cloud Storage (production) · local filesystem (development) |
+| Dev environment | Docker Compose |
+
+---
+
+## How It Works
+
+The React frontend fetches landmark data (name, description, GPS coordinates, photos) from the Django REST API and renders each landmark as a pin on a Leaflet map. The browser Geolocation API continuously tracks the user's position — a blue dot and proximity circle follow them around the map. When the user walks within 200 ft (61 m) of a landmark, a proximity card slides up automatically. Tapping a pin or the proximity card opens a full-screen detail sheet with photos and descriptions. The list view provides a secondary way to browse all landmarks.
+
+---
 
 ## Prerequisites
 
-All team members must have:
+- **Docker Desktop** — must be running before any `docker compose` commands will work
+  - macOS: standard install
+  - Windows: requires WSL2 enabled
+- **Git**
+- **Node.js + npm** — only needed to run the frontend dev server
 
-* **Docker Desktop**
-  * macOS: standard Docker Desktop install
-  * Windows: Docker Desktop **with WSL2 enabled**
-* Git
+---
 
-> Docker Desktop **must be running** before any Docker commands will work.
+## First-Time Setup
 
-## Backend Development Startup
-
-### 1. Start the project container:
-```bash
-docker compose up -d
-```
-
-### 2. Enter the Django container (avoids having to type `docker compose exec web` before every command):
-```bash
-docker compose exec web bash
-```
-
-### 3. Do what you need to do...
-If you need to make changes to the database schema, you need to make and run migrations:
-```bash
-python manage.py makemigrations
-python manage.py migrate
-```
-The dockerfile should already start the Django web server, which you can access at [http://localhost:8000](http://localhost:8000). If you make changes to the code, the server should automatically reload.
-  
-If for whatever reason the server is not running, you can start it with:
-```bash
-python manage.py runserver
-```
-To edit stuff in the database, you can use the Django admin panel at [http://localhost:8000/admin](http://localhost:8000/admin).
-
-### 4. Stop the project:
-```bash
-docker compose down
-```
-
-### Other helpful commands:
-Check container status:
-```bash
-docker compose ps
-```
-
-When you add new dependencies to the `requirements.txt` file, you **must** rebuild the container for the changes to take effect:
-```bash
-docker compose up -d --build
-```
-
-View logs (helpful for debugging):
-```bash
-docker compose logs web --tail=100
-```
-
-## First-Time Setup (All Platforms)
-
-Run the following commands **from the repository root**.
+Run all commands from the **repository root** unless noted otherwise.
 
 ### 1. Create your local environment file
 
@@ -75,21 +45,20 @@ Run the following commands **from the repository root**.
 cp .env.example .env
 ```
 
-> `.env` is not committed to Git. Each developer has their own local copy.
+`.env` is not committed to Git — each developer keeps their own local copy.
 
-### 2. Build and start the containers
+### 2. Build and start the backend containers
 
 ```bash
 docker compose up -d --build
 ```
 
-This will:
+This builds the Django image and starts two containers:
 
-* Build the Django container
-* Start PostgreSQL + PostGIS
-* Start the Django development server
+- `db` — PostgreSQL + PostGIS database
+- `web` — Django development server at <http://localhost:8000>
 
-The first build may take several minutes.
+The first build may take a few minutes (GDAL and other spatial libraries are large).
 
 ### 3. Run database migrations
 
@@ -103,112 +72,68 @@ docker compose exec web python manage.py migrate
 docker compose exec web python manage.py createsuperuser
 ```
 
-Follow the prompts.
+Follow the prompts. You will use this account to log into the Django admin panel and manage landmark data.
 
-### 5. Open the app
+### 5. Verify the backend
 
-* Main site: [http://localhost:8000](http://localhost:8000)
-* Admin panel: [http://localhost:8000/admin](http://localhost:8000/admin)
+- API: <http://localhost:8000/api/health/> → should return `{"status": "ok"}`
+- Admin: <http://localhost:8000/admin>
 
-If you can log into the admin panel, your setup is working correctly.
+### 6. Start the frontend dev server
 
-## Team Conventions
+```bash
+cd frontend
+npm install
+npm run dev
+```
 
-* **Do not commit `.env`**
-* **Database runs only in Docker**
-* **All Django commands are run via Docker**
-* No one installs Postgres or PostGIS locally
-
-# Frontend
-
-A mobile-friendly interactive map for exploring the University of Alabama campus. Built as part of the CS 495 Capstone project.
-
-The frontend displays geotagged campus landmarks on a live map, shows the user's real-time location, and automatically opens a popup when the user walks near a landmark.
+The Vite dev server starts at <http://localhost:5173> with hot module replacement. See the development guide for more details on frontend development.
 
 ---
 
-## Tech Stack
+## Day-to-Day Development
 
-### Leaflet.js
-An open-source JavaScript library for building interactive maps. Leaflet handles rendering the map tiles, placing markers at GPS coordinates, and displaying popup windows when a marker is clicked or triggered. It is loaded directly from a CDN — no installation required.
-
-### nginx
-A lightweight web server used to serve the static frontend files (`map.html`, `map.js`) to the browser. It runs inside a Docker container and is accessible at `http://localhost:3000`. nginx does not run any application logic — it simply delivers the HTML and JavaScript files when the browser requests them.
-
-### OpenStreetMap
-The map tile layer used by Leaflet. OpenStreetMap provides the visual map background (roads, buildings, labels). It is free and open-source and requires no API key.
-
-### Django REST API (Backend)
-The frontend fetches landmark data from a Django backend running at `http://localhost:8000`. The relevant endpoint is `/api/landmarks/`, which returns a JSON array of published landmarks including their name, description, and GPS coordinates. The backend is maintained separately — see the backend README for setup instructions.
-
-### Docker + Docker Compose
-The frontend runs inside a Docker container managed by Docker Compose. This means you do not need to install nginx manually — Docker handles it. The frontend container is defined in `compose.yml` alongside the backend and database containers.
-
----
-
-## Setup & Running
-
-### First Time
-
-**1. Clone the repository and navigate to the project root**
-
-```bash
-git clone 
-cd 
-```
-
-**2. Create your local environment file**
-
-```bash
-cp .env.example .env
-```
-
-**3. Build and start all containers**
-
-```bash
-docker compose up -d --build
-```
-
-This starts three containers:
-- `db` — PostgreSQL + PostGIS database
-- `web` — Django backend at `http://localhost:8000`
-- `frontend` — nginx serving the map at `http://localhost:3000`
-
-The first build may take a few minutes.
-
-**4. Run database migrations**
-
-```bash
-docker compose exec web python manage.py migrate
-```
-
-**5. Create an admin user**
-
-```bash
-docker compose exec web python manage.py createsuperuser
-```
-
-Follow the prompts. You will use this to log into the admin panel and add landmarks.
-
-**6. Open the map**
-
-```
-http://localhost:3000/map.html
-```
-
----
-
-### Every Time After That
+**Start the backend stack:**
 
 ```bash
 docker compose up -d
 ```
 
-Then open `http://localhost:3000/map.html`.
-
-To stop everything:
+**Stop the backend stack:**
 
 ```bash
 docker compose down
 ```
 
+**Rebuild after changing `requirements.txt`:**
+
+```bash
+docker compose up -d --build
+```
+
+**View backend logs:**
+
+```bash
+docker compose logs web --tail=100
+```
+
+**Open a shell inside the Django container** (useful to avoid prefixing every command with `docker compose exec web`):
+
+```bash
+docker compose exec web bash
+```
+
+**Run database migrations after model changes:**
+
+```bash
+docker compose exec web python manage.py makemigrations
+docker compose exec web python manage.py migrate
+```
+
+---
+
+## Team Conventions
+
+- **Do not commit `.env`** — it contains secrets and local config
+- **Database runs only in Docker** — do not install PostgreSQL or PostGIS locally
+- **All Django management commands run via Docker** — `docker compose exec web python manage.py ...`
