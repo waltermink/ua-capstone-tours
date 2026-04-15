@@ -75,3 +75,42 @@ class LandmarkPhoto(models.Model):
 
     def __str__(self):
         return f"Photo for {self.landmark.name}"
+    
+class LandmarkAudio(models.Model):
+    landmark = models.ForeignKey(
+        Landmark,
+        related_name='audio_files',
+        on_delete=models.CASCADE
+    )
+
+    audio = models.FileField(upload_to='landmark_audio/%Y/%m/')
+    caption = models.CharField(max_length=255, blank=True)
+    sort_order = models.PositiveIntegerField(default=0)
+
+    uploaded_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering = ['sort_order', 'uploaded_at']
+
+    def __str__(self):
+        return f"Audio for {self.landmark.name}"
+
+
+class LandmarkVideo(models.Model):
+    landmark = models.ForeignKey(
+        Landmark,
+        related_name='video_files',
+        on_delete=models.CASCADE
+    )
+
+    video = models.FileField(upload_to='landmark_videos/%Y/%m/')
+    caption = models.CharField(max_length=255, blank=True)
+    sort_order = models.PositiveIntegerField(default=0)
+
+    uploaded_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering = ['sort_order', 'uploaded_at']
+
+    def __str__(self):
+        return f"Video for {self.landmark.name}"

@@ -1,5 +1,5 @@
 from rest_framework import serializers # type: ignore
-from locations_db.models import Landmark, LandmarkPhoto
+from locations_db.models import Landmark, LandmarkPhoto, LandmarkAudio, LandmarkVideo
 from django.contrib.gis.geos import Point
 
 # Serializes photos related to a landmark, including the URL and metadata for each photo
@@ -17,6 +17,35 @@ class LandmarkPhotoSerializer(serializers.ModelSerializer):
         
         request = self.context.get("request")
         url = obj.image.url
+        return request.build_absolute_uri(url) if request else url
+    
+class LandmarkAudioSerializer(serializers.ModelSerializer):
+    url = serializers.SerializerMethodField()
+
+    class Meta:
+        model = LandmarkAudio
+        fields = ["id", "url", "caption", "sort_order"]
+
+    def get_url(self, obj):
+        if not obj.audio:
+            return None
+        request = self.context.get("request")
+        url = obj.audio.url
+        return request.build_absolute_uri(url) if request else url
+
+
+class LandmarkVideoSerializer(serializers.ModelSerializer):
+    url = serializers.SerializerMethodField()
+
+    class Meta:
+        model = LandmarkVideo
+        fields = ["id", "url", "caption", "sort_order"]
+
+    def get_url(self, obj):
+        if not obj.video:
+            return None
+        request = self.context.get("request")
+        url = obj.video.url
         return request.build_absolute_uri(url) if request else url
 
 # Serializes a list of landmarks with basic info for the list view
@@ -131,3 +160,19 @@ class LandmarkCreateSerializer(serializers.ModelSerializer):
             **validated_data
         )
         return landmark
+
+class LandmarkMediaSerializer(serializers.ModelSerializer):
+    lat = serializers.SerializerMethodField()
+    lon = serializers.SerializerMethodField()
+    audio_files = LandmarkAudioSerializer(many=True, read_only=True)
+    video_files = LandmarkVideoSerializer(many=True, read_only=True)
+
+    class Meta:
+        model = Landmark
+        fields = ["id", "name", "short_description", "long_description", "lat", "lon", "address", "audio_files", "video_files"]
+
+    def get_lat(self, obj):
+        return obj.location.y if obj.location else None
+
+    def get_lon(self, obj):
+        return obj.location.x if obj.location else None
