@@ -238,7 +238,7 @@ There is no URL-based router. `App.jsx` maintains an `activeTab` state string wi
 | `pages/ExplorePage.jsx` | Active | Full-viewport map with all overlay UI |
 | `pages/ListPage.jsx` | Active | Scrollable landmark list |
 | `pages/ToursPage.jsx` | Placeholder | "Coming soon" |
-| `pages/ContributePage.jsx` | Placeholder | "Coming soon" |
+| `pages/ContributePage.jsx` | Active | User contribution interface |
 
 **`ExplorePage`** is the main interactive experience. It manages three overlay states — `pinCard`, `exploreCard`, and `detailLandmark` — and coordinates all map interaction through callbacks passed into `MapComponent`. Fetched landmark detail objects are cached in a `useRef(new Map())` to avoid redundant network requests when the user taps the same pin multiple times.
 
