@@ -13,5 +13,6 @@ The goal of the project is to create an interactive web application that allows 
 - [Frontend Components](frontend-components.md)
 - [Frontend Hosting](frontend-hosting-guide.md)
 - [Development Guide](development-guide.md)
+- [Deployment Guide](ua-tours-deployment-guide.md)
 - [Project Deliverables](deliverables.md)
 - [Team](team.md)
