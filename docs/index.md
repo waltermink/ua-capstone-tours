@@ -13,4 +13,5 @@ The goal of the project is to create an interactive web application that allows 
 - [Backend Hosting](backend-hosting-guide.md)
 - [Frontend Hosting](frontend-hosting-guide.md)
 - [Team](team.md)
+- [User Guide](user-guide.md)
 - [Deliverables](deliverables.md)
