@@ -13,5 +13,6 @@ nav:
   - Project:
     - Team: team.md
     - Deliverables: deliverables.md
+    - User Guide: user-guide.md
 
 docs_dir: docs
