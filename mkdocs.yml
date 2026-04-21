@@ -2,15 +2,16 @@ site_name: UA Capstone Tours
 
 nav:
   - Home: index.md
-  - Backend Overview: backend-overview.md
-  - Backend Hosting: backend-hosting-guide.md
-  - Data Model: data-model.md
-  - API Reference: api-reference.md
-  - Frontend Components: frontend-components.md
-  - Frontend Hosting: frontend-hosting-guide.md
-  - Development Guide: development-guide.md
-  - Deliverables: deliverables.md
-  - Team: team.md
-
+  - Getting Started: development-guide.md
+  - Architecture:
+    - Data Model: data-model.md
+    - API Reference: api-reference.md
+    - Frontend Components: frontend-components.md
+  - Deployment:
+    - Backend Hosting: backend-hosting-guide.md
+    - Frontend Hosting: frontend-hosting-guide.md
+  - Project:
+    - Team: team.md
+    - Deliverables: deliverables.md
 
 docs_dir: docs

@@ -6,13 +6,11 @@ The goal of the project is to create an interactive web application that allows 
 
 ## Documentation Hub
 
-- [Backend Overview](backend-overview.md)
-- [Backend Hosting](backend-hosting-guide.md)
-- [Data Model and Admin](data-model.md)
+- [Getting Started](development-guide.md)
+- [Data Model](data-model.md)
 - [API Reference](api-reference.md)
 - [Frontend Components](frontend-components.md)
+- [Backend Hosting](backend-hosting-guide.md)
 - [Frontend Hosting](frontend-hosting-guide.md)
-- [Development Guide](development-guide.md)
-- [Deployment Guide](ua-tours-deployment-guide.md)
-- [Project Deliverables](deliverables.md)
 - [Team](team.md)
+- [Deliverables](deliverables.md)

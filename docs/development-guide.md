@@ -128,6 +128,19 @@ backend/
 └── Dockerfile
 ```
 
+### Runtime Architecture
+
+1. Clients call API endpoints under `/api/`.
+2. DRF generic views query `locations_db` models.
+3. Serializers shape response payloads for list/detail/nearby use cases.
+4. Media files (landmark photos) are served from `/media/` in development.
+
+### URL Routing
+
+- `/api/` → API endpoints (`backend/api/urls.py`)
+- `/admin/` → Django admin
+- `/locations_db/` → temporary app route used for basic test response
+
 ### Django Settings (`config/settings.py`)
 
 Key configuration decisions:
